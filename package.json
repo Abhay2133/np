@@ -1,0 +1,29 @@
+{
+  "name": "ws",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "clear && nodemon",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abhay2132/ws.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abhay2132/ws/issues"
+  },
+  "homepage": "https://github.com/Abhay2132/ws#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "colors": "^1.4.0",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.6",
+    "node-html-parser": "^5.1.0",
+    "nodejs-file-downloader": "^4.7.4"
+  }
+}
