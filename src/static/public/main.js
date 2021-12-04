@@ -34,14 +34,20 @@ async function read (){
 function disp ( {text = false} ) {
 	if( ! text ) return ;
 	let out = document.getElementById("data-out")
-	typewriter(out, text)
+	tw.w(out, text)
 }
 
-async function typewriter ( tag, txt ) {
-	if ( ! ( tag && txt )) return ;
-	tag.textContent = ""
-	for ( let i=0; i < txt.length ; i++ ) {
-		tag.textContent += txt[i]
-		await wait(100);
+
+const tw = { // tw means typeWriter
+	live : false,
+	w : async ( tag, txt ) => {
+		if ( ! ( tag && txt && ( ! tw.live))) return ;
+		tw.live = true
+		tag.textContent = ""
+		for ( let i=0; i < txt.length ; i++ ) {
+			tag.textContent += txt[i]
+			await wait(50);
+		}
+		tw.live = false;
 	}
 }

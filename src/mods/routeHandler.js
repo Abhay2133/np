@@ -26,7 +26,7 @@ module.exports = function (app) {
 	
 	app.post ( "/fs/write" , ( req, res ) => {
 		let json = req.body;
-		log(json);
+		//log(json);
 		fs.writeFile(j(__dirname, "..", "file.txt"), json.data, (err) => {
 			if (err) return res.json({ text : err.stack})
 			res.json({ text : "File Written ! "})
