@@ -41,13 +41,24 @@ function disp ( {text = false} ) {
 const tw = { // tw means typeWriter
 	live : false,
 	w : async ( tag, txt ) => {
-		if ( ! ( tag && txt && ( ! tw.live))) return ;
-		tw.live = true
+		if ( ! ( tag && txt )) return ;
+		if ( tw.live ) await tw.kill ();
+		tw.live = tw.live || true
 		tag.textContent = ""
 		for ( let i=0; i < txt.length ; i++ ) {
+			if ( tw.stop ) break;
 			tag.textContent += txt[i]
 			await wait(50);
 		}
 		tw.live = false;
-	}
+	},
+	kill : () => new Promise ( async (res) => {
+		tw.stop = true;
+		while ( true ) {
+			if( ! tw.live ) break;
+			await wait(10);
+		}
+		tw.stop = false;
+		return res();
+	})
 }
