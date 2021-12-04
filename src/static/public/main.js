@@ -48,7 +48,7 @@ const tw = { // tw means typeWriter
 		for ( let i=0; i < txt.length ; i++ ) {
 			if ( tw.stop ) break;
 			tag.textContent += txt[i]
-			await wait(50);
+			await wait(0);
 		}
 		tw.live = false;
 	},
