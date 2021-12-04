@@ -2,34 +2,30 @@
 <meta name="viewport" content="width=device-width, scale=1">
 
 <head>
-    <title> Node JS fs module </title>
+    <title> Node Express Practice </title>
     <link rel="stylesheet" href="styles.css" />
-    <script src="./eruda.js" onload="eruda.init();">></script>
+    <script src="./eruda.js" onload="eruda.init();"></script>
 </head>
 <style>
-	body { position : relative; left : 100% ; transition : 0.3s ; margin : 0px; font-family: calibri;}
+	body { display : none }
 </style>
-<body class="left-n bdr m rc-s pc(w-500p,left-50pg,m-L-_250p) " id="body">
+<body class="d-b m-n" id="body">
 
-<form id="writer" class="t-c bg-eef p m rc-s" onsubmit="post(); return false;">
-	<h3 class="p dnw rc m-n m-B"> Write and Read </h3>
-	<input id="data-in" required placeholder = " Type text here ..." class="d-b bb w-100pg out-no p-s bdr rc-s "  />
-	<button onclick="pressed(this, true)" class="m-T dnw p-5px_20px bdr rc-s"> Write</button>
-</form>
+<h1 class="m-n p-l t-c bg-eee fw-300 f-xxl m-B ">
+	Node Express Practice
+</h1>
 
-<div id="reader" class="p m t-c m-T ">
-	<div id="data-out" class="bdr rc-s p-l"> Data wil be displayed here ... </div>
-	<button onclick="pressed(this, true); read();" class="m-T dnw p-5px_20px bdr rc-s"> Read </button>
+<div href="fs" class="button m p-10px_20px bnw rc-s d-ib" onclick = "pressed(this, true); setTimeout( () => window.location.href = 'fs', 400);">
+	FS Module
 </div>
-
 
 </body>
 
 
 <script>async function runAcss() { let acssBody; localStorage.getItem("acss") ? acssBody = localStorage.getItem("acss") : (acssBody = await fetch("https://cdn2132.herokuapp.com/acss.min.js"), acssBody = await acssBody.text(), localStorage.setItem("acss", acssBody), console.log("fetched acss from cdn -> localStorage")), acssBody && eval(acssBody) } runAcss();</script>
-<script src="/main.js"></script>
+<script src="main.js"></script>
 <style>
-	button {
+	button, .button {
 		box-shadow : 0px 4px 1px #666;
 	}
 </style>

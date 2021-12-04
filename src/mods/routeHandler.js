@@ -10,7 +10,7 @@ module.exports = function (app) {
 	})
 	
 	app.get("/", (req, res) => {
-		res.send("Hi");
+		res.sendFile(j(__dirname, "..", "static", "views", "index.htm"))
 	})
 	
 	app.post("/imgD", async (req, res) => {
@@ -21,7 +21,7 @@ module.exports = function (app) {
 	})
 	
 	app.get("/fs", (req, res) => {
-		res.sendFile(j(__dirname, "..", "static", "views", "index.htm"));
+		res.sendFile(j(__dirname, "..", "static", "views", "fs.htm"));
 	})
 	
 	app.post ( "/fs/write" , ( req, res ) => {

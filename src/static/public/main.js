@@ -12,10 +12,11 @@ function pressed ( tag , bs = false){
 }
 
 async function post (){
+	let data = document.querySelector("#data-in").value;
+	if( ! data) return ;
 	let myHeaders = new Headers();
 	myHeaders.append('Content-Type', 'application/json');
-	let data = document.querySelector("#data-in").value,
-		req = await fetch ("fs/write", {
+	let req = await fetch ("fs/write", {
 			method : "POST",
 			headers : myHeaders,
 			body : JSON.stringify({ data : data })
