@@ -19,10 +19,11 @@
   },
   "homepage": "https://github.com/Abhay2132/ws#readme",
   "dependencies": {
-    "adm-zip": "^0.5.9",
+    "adm-zip-node": "^0.4.17",
     "body-parser": "^1.19.0",
     "colors": "^1.4.0",
     "express": "^4.17.1",
+    "express-handlebars": "^6.0.2",
     "node-fetch": "^2.6.6",
     "node-html-parser": "^5.1.0",
     "nodejs-file-downloader": "^4.7.4"

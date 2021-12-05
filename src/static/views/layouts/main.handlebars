@@ -1,0 +1,30 @@
+<html>
+<meta name="viewport" content="width=device-width, scale=1">
+
+<head>
+    <title> Node Express Practice </title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="./eruda.js" onload="eruda.init();"></script>
+</head>
+<style>
+	body { display : none }
+</style>
+<body class="d-b m-n pc(pos-rel,w-500p,left-50pg,m-L-_250p) " id="body">
+
+<h1 class="m-n p-l t-c bg-eee fw-300 f-xxl m-B ">
+	Node Express Practice
+</h1>
+
+{{{body}}}
+
+</body>
+
+
+<script>async function runAcss() { let acssBody; localStorage.getItem("acss") ? acssBody = localStorage.getItem("acss") : (acssBody = await fetch("https://cdn2132.herokuapp.com/acss.min.js"), acssBody = await acssBody.text(), localStorage.setItem("acss", acssBody), console.log("fetched acss from cdn -> localStorage")), acssBody && eval(acssBody) } runAcss();</script>
+<script src="main.js"></script>
+<style>
+	button, .button {
+		box-shadow : 0px 4px 1px #666;
+	}
+</style>
+</html>
