@@ -9,7 +9,8 @@ const exp = require("express"),
 				let host = app.locals.env == "pro" ? "https://nexpp.herokuapp.com/" : "http://localhost:" + app.locals.port;
 				return host;
 			}
-		}
+		},
+		extname: '.hbs'
 	}),
 	compression = require('compression')
 
@@ -19,8 +20,8 @@ global.basename = require("path").basename
 app.locals.env = process.env.NODE_ENV == "production" ? "pro" : "dev"
 app.locals.port = process.env.PORT || 3000
 
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars');
+app.engine('.hbs', hbs.engine);
+app.set('view engine', '.hbs');
 app.set('views', j(__dirname, "static", "views"));
 
 app.use(exp.static(j(__dirname, "static", "public")));
