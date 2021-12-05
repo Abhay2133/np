@@ -1,6 +1,7 @@
 const fetch = require("node-fetch"),
 	parse = require("node-html-parser").parse,
-	dwn = require('nodejs-file-downloader')
+	dwn = require('nodejs-file-downloader'),
+	fs = require("fs");
 
 function imgDownloader(url) {
 return new Promise (async ( res ) => {
@@ -16,6 +17,12 @@ return new Promise (async ( res ) => {
 	dom = parse(html),
 		imgs = dom.querySelectorAll("img");
 	log( { files2Download: imgs.length })
+	await (new Promise ( res => {
+		fs.rm(j(__dirname, "..", "static", "downloads", "imgs"), {recursive : true}, (err) => {
+			if (err) return res(log("Deleting downloads/imgs", err.stack));
+			return res(log("imgs deleted !"));
+		})
+	}))
 		for (let img of imgs) {
 			let ds = "."
 			try {
