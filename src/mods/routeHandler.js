@@ -27,7 +27,7 @@ module.exports = function (app) {
 	})
 
 	app.get("/fs", (req, res) => {
-		res.render("fs");
+		res.render("fs", {host : "http://localhost:3000"});
 	})
 
 	app.post("/fs/write", (req, res) => {
