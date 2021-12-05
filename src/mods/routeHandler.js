@@ -20,10 +20,8 @@ module.exports = function (app) {
 	})
 
 	app.post("/imgD", async (req, res) => {
-		let url = req.body.url || false;
-		let data = {};
-		if (url) data = await scraper.id(url);
-		res.json(data);
+		log(req.body)
+		res.end()
 	})
 
 	app.get("/fs", (req, res) => {
@@ -80,22 +78,5 @@ module.exports = function (app) {
 		res.json({ text: "Compression started for " + JSON.stringify(dir) })
 	})
 
-	app.get("/download", async (req, res) => {
-		var fileData = await (new Promise((res) => {
-			fs.readFile(j(__dirname, "..", "static", "public", "eruda.js"), (err, buff) => {
-				if (err) { log(err); return res(new Buffer.from(ArrayBuffer)) }
-				res(buff)
-			})
-		})),
-			fileName = "eruda.js"
-		var fileContents = Buffer.from(fileData, "base64");
-
-		var rs = new Stream.PassThrough();
-		rs.end(fileContents);
-
-		res.set('Content-disposition', 'attachment; filename=' + fileName);
-		res.set('Content-Type', 'text/plain');
-
-		rs.pipe(res);
-	})
+	
 }
