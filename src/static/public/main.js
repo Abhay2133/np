@@ -67,12 +67,12 @@ const tw = { // tw means typeWriter
 async function getImgs (){
 	const siteURL = document.querySelector("#website_url").value;
 	if( ! siteURL ) return log("Error : url is empty");
-	if( ! navigator.onLine ) return elog("U r offline");
-	fetch("/imgD", {
+	//if( ! navigator.onLine ) return elog("U r offline");
+	let req = await fetch("/imgD", {
 		method : "POST",
 		headers : new Headers ({"Content-Type" : "application/json"}),
 		body : JSON.stringify({url : siteURL})
-	})
-	.then( res => res.text())
-	.then( txt => log(txt))
+	}),
+		res = await req.json();
+	location.href = res.url;
 }

@@ -20,10 +20,9 @@ module.exports = function (app) {
 	
 	app.post("/imgD", async (req, res) => {
 		let url = req.body.url;
-		log("url :", url);
 		await scraper.imgD (url);
-		let zipBuff = await zipper.cdir(j(__dirname, ".." , "static", "downloads", "img"), "img.zip");
-		res.download(j(__dirname, ".." , "static", "files", "zip", "img.zip"))
+		let zipBuff = await zipper.cdir(j(__dirname, ".." , "static", "downloads", "imgs"), "img.zip");
+		res.json({url : "/download/img.zip"})
 	})
 
 	app.post("/fs/:opr", (req, res) => fs[req.params.opr + "File"](j(__dirname, "..", "static", "files", "file.txt"), req.body.data, (err) => {
@@ -35,5 +34,9 @@ module.exports = function (app) {
 			if (err) return res.json({ text: err.stack })
 			res.json({ text: txt.toString() })
 		}))
+		
+	app.get("/download/:file" ,(req, res) => {
+		res.download(j(__dirname, "..", "static", "files", "zip", req.params.file))
+	})
 	
 }

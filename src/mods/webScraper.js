@@ -5,16 +5,20 @@ const fetch = require("node-fetch"),
 function imgDownloader(url) {
 return new Promise (async ( res ) => {
 	log("url :", url);
-	const htm = await fetch(url),
-		html = await htm.text()
+	var htm;
+	try {
+	htm = await fetch(url)
+	} catch (e) {
+		res({done : false})
+		 return log("imgDownloader > fetch :", e.stack);
+	}
+	const html = await htm.text(),
 	dom = parse(html),
 		imgs = dom.querySelectorAll("img");
-
-	log(imgs.length)
-	setTimeout(async () => {
+	log( { files2Download: imgs.length })
 		for (let img of imgs) {
+			let ds = "."
 			try {
-				process.stdout.write(".");
 				let name = img.getAttribute("alt") || basename(img.getAttribute("src"))
 				let d = new dwn({
 					url: img.getAttribute("src"),
@@ -24,12 +28,11 @@ return new Promise (async ( res ) => {
 				})
 				await d.download()
 			} catch (e) {
-				log({ error: img.getAttribute("src") })
+				ds = "!"
 			}
+			process.stdout.write(ds);
 		}
 		res ({ done : true })
-	}, 100);
-	log( { files2Download: imgs.length })
 	});
 }
 
