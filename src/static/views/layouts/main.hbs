@@ -22,10 +22,14 @@
 
 <script>async function runAcss() { let acssBody; localStorage.getItem("acss") ? acssBody = localStorage.getItem("acss") : (acssBody = await fetch("https://cdn2132.herokuapp.com/acss.min.js"), acssBody = await acssBody.text(), localStorage.setItem("acss", acssBody), console.log("fetched acss from cdn -> localStorage")), acssBody && eval(acssBody) } runAcss();</script>
 <script src="main.js"></script>
+<script src="hlpr.js"></script>
 <style>
 	button, .button {
 		box-shadow : 0px 4px 1px #666;
 		cursor: pointer;
+		border: 2px solid #3f3f3f;
+		border-top: 2px solid grey;
+		border-left: 2px solid grey;
 	}
 
 	a {

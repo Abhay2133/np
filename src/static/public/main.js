@@ -62,3 +62,8 @@ const tw = { // tw means typeWriter
 		return res();
 	})
 }
+
+async function getImgs (){
+	const siteURL = document.querySelector("#website_url").value;
+	downloadFile("/imgD/" + siteURL)
+}
