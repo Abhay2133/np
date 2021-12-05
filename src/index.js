@@ -8,6 +8,10 @@ const exp = require("express"),
 			hn () {
 				let host = app.locals.env == "pro" ? "https://nexpp.herokuapp.com/" : "http://localhost:" + app.locals.port;
 				return host;
+			},
+			eruda () {
+				let eruda = process.env.NODE_ENV == "production" ? "" : "eruda"
+				return eruda;
 			}
 		},
 		extname: '.hbs'
