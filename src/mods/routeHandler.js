@@ -2,81 +2,38 @@ const { Stream } = require("stream");
 const scraper = require("./webScraper.js"),
 	colors = require("colors"),
 	fs = require("fs"),
-	zipper = require("./zipper");
+	zipper = require("./zipper"),
+	hlpr = require("./hlpr.js"),
+	routes = {
+	"/" : "index",
+	"/fs" : "fs",
+	"/imgD" : "imgD"
+}
 
 module.exports = function (app) {
 
 	app.use((a, b, c) => {
 		log(colors.green(a.method), a.url);
+		if ( Object.keys(routes).includes(a.url) && a.method == "GET" ) return b.render(routes[a.url]);
 		c();
 	})
-
-	app.get("/", (req, res) => {
-		res.render("index")
-	})
-
-	app.get("/imgD", (req, res) => {
-		res.render("imgD")
-	})
-
+	
 	app.post("/imgD", async (req, res) => {
-		log(req.body)
-		res.end()
+		let url = req.body.url;
+		log("url :", url);
+		await scraper.imgD (url);
+		let zipBuff = await zipper.cdir(j(__dirname, ".." , "static", "downloads", "img"), "img.zip");
+		res.download(j(__dirname, ".." , "static", "files", "zip", "img.zip"))
 	})
 
-	app.get("/fs", (req, res) => {
-		res.render("fs", {host : "http://localhost:3000"});
-	})
-
-	app.post("/fs/write", (req, res) => {
-		let json = req.body;
-		//log(json);
-		fs.writeFile(j(__dirname, "..", "static", "files", "file.txt"), json.data, (err) => {
+	app.post("/fs/:opr", (req, res) => fs[req.params.opr + "File"](j(__dirname, "..", "static", "files", "file.txt"), req.body.data, (err) => {
 			if (err) return res.json({ text: err.stack })
 			res.json({ text: "File Written ! " })
-		})
-	})
-
-	app.post("/fs/append", (req, res) => {
-		let json = req.body;
-		//log(json);
-		fs.appendFile(j(__dirname, "..", "static", "files", "file.txt"), json.data, (err) => {
-			if (err) return res.json({ text: err.stack })
-			res.json({ text: "File Written ! " })
-		})
-	})
-
-	app.get("/fs/read", (req, res) => {
-		fs.readFile(j(__dirname, "..", "static", "files", "file.txt"), (err, txt) => {
+		}))
+	
+	app.get("/fs/read", (req, res) => fs.readFile(j(__dirname, "..", "static", "files", "file.txt"), (err, txt) => {
 			if (err) return res.json({ text: err.stack })
 			res.json({ text: txt.toString() })
-		})
-	})
-
-	app.post("/zip/files", (req, res) => {
-		let files = false, out = false;
-		({ files, out } = req.body);
-		if (!(out && files)) return res.json({ error: "files / out missing ! " })
-		setTimeout(async () => { let txt = await zipper.c(files, j(__dirname, "..", "static", "files", "zip", out)); log(txt) }, 0);
-		res.json({ text: "Compression started for " + JSON.stringify(files) })
-	})
-
-	app.post("/zip/dir", (req, res) => {
-		let dir = false, out = false;
-		({ dir, out } = req.body);
-		if (!(out && dir)) return res.json({ error: "files / out missing ! " })
-		setTimeout(async () => {
-			let files = await (new Promise(resolve => {
-				fs.readdir(dir, (err, files) => {
-					if (err) { log(err); return resolve([]) }
-					resolve(files.map(file => j(dir, file)));
-				});
-			}))
-			let txt = await zipper.c(files, j(__dirname, "..", "static", "files", "zip", out));
-			log(txt)
-		}, 0);
-		res.json({ text: "Compression started for " + JSON.stringify(dir) })
-	})
-
+		}))
 	
 }

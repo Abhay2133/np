@@ -2,8 +2,8 @@ const fetch = require("node-fetch"),
 	parse = require("node-html-parser").parse,
 	dwn = require('nodejs-file-downloader')
 
-async function imgDownloader(url) {
-
+function imgDownloader(url) {
+return new Promise (async ( res ) => {
 	log("url :", url);
 	const htm = await fetch(url),
 		html = await htm.text()
@@ -27,11 +27,12 @@ async function imgDownloader(url) {
 				log({ error: img.getAttribute("src") })
 			}
 		}
+		res ({ done : true })
 	}, 100);
-
-	return { files2Download: imgs.length }
+	log( { files2Download: imgs.length })
+	});
 }
 
 module.exports = {
-	id: imgDownloader
+	imgD : imgDownloader
 }

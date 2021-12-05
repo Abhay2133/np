@@ -1,8 +1,9 @@
 function downloadFile(file) {
+	log("Downloading Zip");
     const link = document.createElement("a");
     link.style.display = "none";
-    link.href = file.url
-    link.download = file.name;
+	link.href = URL.createObjectURL(file);
+    //link.download = file.name;
     document.body.appendChild(link);
     link.click();
     setTimeout(() => {

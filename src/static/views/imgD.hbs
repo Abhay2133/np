@@ -1,8 +1,8 @@
 
-<form class="m p t-c bg-afe rc" onsubmit="getImgs(); return false;">
+<div class="m p t-c bg-afe rc" >
     <h2 class="m-10px_20px rc p dnw"> Image Downloader</h2>
     <input type="url" id="website_url" class="p-s m bdr rc-s d-ib w-60pg t-c bb" placeholder="Website URL" required>
-    <button class="p-5px_20px dnw rc-s" onclick="pressed(this, true)"> Submit </button>
-</form>
+    <button onclick="getImgs()" class="p-5px_20px dnw rc-s" onclick="pressed(this, true)"> Submit </button>
+</div>
 
 <script>document.querySelector("title").textContent = "Image Downloader"; </script>

@@ -1,4 +1,5 @@
-const log = (...a) => console.log(...a);
+window.log = (...a) => console.log(...a);
+window.elog = (...a) => console.error(...a);
 const wait = (n) => new Promise(res => setTimeout( res, n));
 
 function pressed ( tag , bs = false){
@@ -65,5 +66,13 @@ const tw = { // tw means typeWriter
 
 async function getImgs (){
 	const siteURL = document.querySelector("#website_url").value;
-	downloadFile("/imgD/" + siteURL)
+	if( ! siteURL ) return log("Error : url is empty");
+	if( ! navigator.onLine ) return elog("U r offline");
+	fetch("/imgD", {
+		method : "POST",
+		headers : new Headers ({"Content-Type" : "application/json"}),
+		body : JSON.stringify({url : siteURL})
+	})
+	.then( res => res.text())
+	.then( txt => log(txt))
 }

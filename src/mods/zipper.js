@@ -1,6 +1,6 @@
 const adm = require("adm-zip-node");
 
-function compress(files = [], out = false) {
+function compress(files = [], out = false, cb = false) {
 	return new Promise(res => {
 		const zip = new adm();
 		files.forEach((file) => zip.addLocalFile(file));
@@ -21,7 +21,7 @@ function compressDir(dir = false, out = false) {
 				resolve(files.map(file => j(dir, file)));
 			});
 		}))
-		let data = await compress (files, j(__dirname, "..", "static", "files", "zip", out));
+		let data = await compress (files, j(__dirname, "..", "static", "files", "zip", out, cb));
 		res(data)
 	})
 }
