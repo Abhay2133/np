@@ -27,12 +27,12 @@ module.exports = function (app) {
 		res.json({url : "/download?did=img.zip"})
 	})
 
-	app.post("/fs/:opr", (req, res) => fs[req.params.opr + "File"](j(__dirname, "..", "static", "files", "file.txt"), req.body.data, (err) => {
+	app.post("/fs/:opr", (req, res) => fs[req.params.opr + "File"](j(__dirname, "..", "static", "public", "file.txt"), req.body.data, (err) => {
 			if (err) return res.json({ text: err.stack })
 			res.json({ text: "File Written ! " })
 		}))
 	
-	app.get("/fs/read", (req, res) => fs.readFile(j(__dirname, "..", "static", "files", "file.txt"), (err, txt) => {
+	app.get("/fs/read", (req, res) => fs.readFile(j(__dirname, "..", "static", "public", "file.txt"), (err, txt) => {
 			if (err) return res.json({ text: err.stack })
 			res.json({ text: txt.toString() })
 		}))
