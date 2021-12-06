@@ -2,7 +2,7 @@ window.log = (...a) => console.log(...a);
 window.elog = (...a) => console.error(...a);
 const wait = (n) => new Promise(res => setTimeout( res, n));
 
-function pressed ( tag , bs = false){
+window.pressed = function ( tag , bs = false){
     tag.style.transition = "0.2s";
     tag.style.transform = "translateY(3px)";
     if(bs) tag.style.boxShadow = "0px 1px 1px #666"
@@ -12,7 +12,7 @@ function pressed ( tag , bs = false){
     }, 250)
 }
 
-async function post (url){
+window.post = async function (url){
 	let data = document.querySelector("#data-in").value;
 	if( ! data) return ;
 	let myHeaders = new Headers();
@@ -26,20 +26,20 @@ async function post (url){
 	disp(res)
 }
 
-async function read (){
+window.read = async function (){
 	let res = await fetch ("fs/read"),
 		data = await res.json() || {}
 	disp (data)
 }
 
-function disp ( {text = false} ) {
+window.disp = function ( {text = false} ) {
 	if( ! text ) return ;
 	let out = document.getElementById("data-out")
 	tw.w(out, text)
 }
 
 
-const tw = { // tw means typeWriter
+window.tw = { // tw means typeWriter
 	live : false,
 	w : async ( tag, txt ) => {
 		if ( ! ( tag && txt )) return ;
@@ -64,7 +64,7 @@ const tw = { // tw means typeWriter
 	})
 }
 
-async function getImgs (){
+window.getImgs = async function (){
 	const siteURL = document.querySelector("#website_url").value;
 	if( ! siteURL ) return log("Error : url is empty");
 	//if( ! navigator.onLine ) return elog("U r offline");
@@ -77,7 +77,7 @@ async function getImgs (){
 	location.href = res.url;
 }
 
-function dwnld ( url, fn ) {
+window.dwnld = function ( url, fn ) {
 	fetch ( url )
 	.then( resp => resp.blob ())
 	.then ( blob => {
@@ -89,5 +89,5 @@ function dwnld ( url, fn ) {
         a.click();    
         a.remove();  
 	})
-	.then( txt => log(txt))
+	.then( txt => log("Download Started !"))
 }

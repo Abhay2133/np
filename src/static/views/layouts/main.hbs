@@ -5,6 +5,13 @@
     <title> Node Express Practice </title>
     <link rel="stylesheet" href="styles.css" />
     <script src="./{{eruda}}.js" onload="eruda.init();"></script>
+    <script>
+    	const loadjs={runJS:function(jsFiles=!1){return jsFiles=jsFiles||loadjs.files,new Promise(res=>{jsFiles.forEach(async file=>{let fn=location.host+"/"+file.name,js=await loadjs.getJS(fn,file.url);js&&(eval(js),localStorage.setItem(fn,js))}),res()})},init:function(e=[]){e=e.concat(loadjs.files),loadjs.runJS(e)},files:[],getJS:function(e=!1,r=!1){return new Promise(async s=>{if(localStorage.getItem(e))return s(localStorage.getItem(e));let l=await fetch(r);s(await l.text())})},addFile:function(e,r){if(!e||!r)return console.error("loadjs.addFile error : name / url not defined !");loadjs.files.push({name:e,url:r})},addFiles:function(e){if(!Array.isArray(e))return console.error("loadjs.addFiles error : required an array of objs { name, url } !");loadjs.files=loadjs.files.concat(e)}};
+ 		loadjs.addFile("acss.js", "https://cdn2132.herokuapp.com/acss.min.js")
+ 		loadjs.addFile("main.js", "main.js");
+ 		loadjs.addFile("hlpr.js", "hlpr.js");
+ 		loadjs.init();
+  </script>
 </head>
 <style>
 	body { display : none; font-family : calibri }
@@ -19,10 +26,12 @@
 
 </body>
 
-
+<!--
 <script>async function runAcss() { let acssBody; localStorage.getItem("acss") ? acssBody = localStorage.getItem("acss") : (acssBody = await fetch("https://cdn2132.herokuapp.com/acss.min.js"), acssBody = await acssBody.text(), localStorage.setItem("acss", acssBody), console.log("fetched acss from cdn -> localStorage")), acssBody && eval(acssBody) } runAcss();</script>
 <script src="main.js"></script>
 <script src="hlpr.js"></script>
+-->
+	
 <style>
 	button, .button {
 		box-shadow : 0px 4px 1px #666;

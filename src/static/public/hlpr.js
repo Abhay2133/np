@@ -1,4 +1,4 @@
-function downloadFile(file) {
+window.downloadFile = function(file) {
  return new Promise ( res => {
   const link = document.createElement("a");
   link.style.display = "none";
