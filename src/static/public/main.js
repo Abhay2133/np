@@ -14,7 +14,7 @@ window.pressed = function ( tag , bs = false){
 
 window.post = async function (url){
 	let data = document.querySelector("#data-in").value;
-	if( ! data) return ;
+	if( ! data) return 
 	let myHeaders = new Headers();
 	myHeaders.append('Content-Type', 'application/json');
 	let req = await fetch (url, {
@@ -51,7 +51,7 @@ window.tw = { // tw means typeWriter
 			tag.textContent += txt[i]
 			await wait(0);
 		}
-		tw.live = false;
+		tw.live = false
 	},
 	kill : () => new Promise ( async (res) => {
 		tw.stop = true;

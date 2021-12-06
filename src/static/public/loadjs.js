@@ -15,7 +15,7 @@ const loadjs = {
 	init : async function ( jsObjs = [] ) {
 	 	jsObjs = jsObjs.concat(loadjs.files);
 		await loadjs.runJS(jsObjs);
-		await check4update(jsObjs);
+		await loadjs.check4update(jsObjs);
 	},
 	files : [],
 	getJS : function ( name = false, url = false, force = false) {
@@ -35,19 +35,21 @@ const loadjs = {
 		if(! Array.isArray(objs)) return console.error("loadjs.addFiles error : required an array of objs { name, url } !");
 		loadjs.files = loadjs.files.concat(objs);
 	},
-	check4update : (objs) => new Promise ( res => {
+	check4update : (objs) => new Promise (async (res) => {
 		let ufs = new Array ();
+		console.log("loadjs : Checking for Update of ", objs.length, "files" );
 		if ( ! navigator.onLine) return res(console.error("loadjs.check4update error : u r offline...."))
-			objs.forEach ( async (obj) => {
+			for(let i=0; i < objs.length ; i++) {
+				let obj = objs[i];
 				let lsc = localStorage.getItem( obj.name) || false;
 				if ( ! lsc ) return;
 				let fn = obj.name,
 					js = await loadjs.getJS(fn, obj.url, true)
-				if ( lsc == js ) return
+				if ( lsc == js ){  console.log(obj.name, "is up-to-date"); continue}
 				 localStorage.setItem(fn, js);
 				ufs.push(obj.name);
-			})
-			res(console.log("updated :", ufs))
+			}
+			res(console.log("updated :", JSON.stringify(ufs)))
 	})
 }
 	

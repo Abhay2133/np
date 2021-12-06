@@ -4,7 +4,6 @@ window.downloadFile = function(file) {
   link.style.display = "none";
   link.href = URL.createObjectURL(file);
   if(file.name) link.download = file.name;
-
   document.body.appendChild(link);
   link.click();
   setTimeout(() => {
