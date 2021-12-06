@@ -33,7 +33,7 @@ module.exports = function (app) {
 		}))
 	
 	app.get("/fs/read", (req, res) => fs.readFile(j(__dirname, "..", "static", "public", "file.txt"), (err, txt) => {
-			if (err) return res.json({ text: err.stack })
+			if (err) return res.json({ text: "File is Empty" })
 			res.json({ text: txt.toString() })
 		}))
 		
