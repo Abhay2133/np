@@ -76,3 +76,18 @@ async function getImgs (){
 		res = await req.json();
 	location.href = res.url;
 }
+
+function dwnld ( url, fn ) {
+	fetch ( url )
+	.then( resp => resp.blob ())
+	.then ( blob => {
+		var url = window.URL.createObjectURL(blob);
+         var a = document.createElement('a');
+        a.href = url;
+        a.download = fn;
+        document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
+        a.click();    
+        a.remove();  
+	})
+	.then( txt => log(txt))
+}

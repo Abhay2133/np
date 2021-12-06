@@ -35,8 +35,10 @@ module.exports = function (app) {
 			res.json({ text: txt.toString() })
 		}))
 		
-	app.get("/download/:file" ,(req, res) => {
-		res.download(j(__dirname, "..", "static", "files", "zip", req.params.file))
+	app.get("/download*" ,(req, res) => {
+		if (req.query.file ) return res.download(j(__dirname, "..", "static", "files", "zip", req.query.file));
+		res.render("download" , {filename : req.query.did })
 	})
+	
 	
 }
