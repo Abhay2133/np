@@ -1,14 +1,17 @@
 const fetch = require("node-fetch"),
 	parse = require("node-html-parser").parse,
 	dwn = require('nodejs-file-downloader'),
-	fs = require("fs");
+	fs = require("fs"),
+	hlpr = require("./hlpr")
 
 function imgDownloader(url, ddir = "imgs") { // ddir => download dir
 return new Promise (async ( res ) => {
-	log("url :", url);
+	if ( ! url ) return res ({status : "dead"});
+	url = require("url").parse(url);
+	//log("url :", url);
 	var htm;
 	try {
-	htm = await fetch(url)
+	htm = await fetch(url.href)
 	} catch (e) {
 		res({done : false})
 		 return log("imgDownloader > fetch :", e.stack);
@@ -17,30 +20,29 @@ return new Promise (async ( res ) => {
 	dom = parse(html),
 		imgs = dom.querySelectorAll("img");
 	log( { files2Download: imgs.length })
-	/*await (new Promise ( reso => {
-		log("Deleting", ddir);
-		fs.rm(j(__dirname, "..", "static", "downloads", ddir), {recursive : true}, (err) => {
-			if (err) return reso(log("Deleting downloads/"+ddir, err.stack));
-			return reso(log(ddir," deleted !"));
-		})
-	}))*/
+	await hlpr.delDdir(ddir);
 		for (let img of imgs) {
 			let ds = "."
+			let src = img.getAttribute("src"),
+				origin = url.protocol + "//" + url.host
+			if( ! src ) continue;
+			let name = img.getAttribute("alt") || basename(src)
+			if ( ! src.startsWith("http")) src = src.startsWith("/") ? (origin + src) : (origin + "/" + src);
+			//log(src);
 			try {
-				let name = img.getAttribute("alt") || basename(img.getAttribute("src"))
 				let d = new dwn({
-					url: img.getAttribute("src"),
+					url: src,
 					directory: j(__dirname, "..", "static", "downloads", ddir),
 					cloneFiles: false,
 					fileName: name + ".png"
 				})
 				await d.download()
 			} catch (e) {
-				ds = "!"
+				ds = "\n! : "+ src
 			}
 			process.stdout.write(ds);
 		}
-		res ({ done : true })
+		res ({ status : "done" })
 	});
 }
 

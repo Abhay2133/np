@@ -1,5 +1,6 @@
 const adm = require("adm-zip-node"),
-	fs = require("fs");
+	fs = require("fs"),
+	hlpr = require("./hlpr");
 
 function compress(files = [], out = false) {
 	return new Promise(res => {
@@ -17,13 +18,15 @@ function compress(files = [], out = false) {
 function compressDir(dir = false, out = false) {
 	return new Promise( async (res) => {
 		if (!dir) return res({ error: "Dir is not defined !" })
+		let cdir = j(__dirname, ".." , "static", "downloads", dir)
 		let files = await(new Promise(resolve => {
-			fs.readdir(dir, (err, files) => {
-				if (err) { log(err); return resolve([]) }
-				resolve(files.map(file => j(dir, file)));
+			fs.readdir(cdir, (err, files) => {
+				if (err) { return resolve([]) }
+				resolve(files.map(file => j(cdir, file)));
 			});
 		}))
 		let data = await compress (files, j(__dirname, "..", "static", "files", "zip", out));
+		if(out) await hlpr.delDdir(dir);
 		res(data)
 	})
 }

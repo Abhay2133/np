@@ -2,7 +2,18 @@ const exp = require("express"),
 	app = exp(),
 	rh = require("./mods/routeHandler.js"),
 	bodyParser = require('body-parser'),
-	hbs = require("express-handlebars").create({
+	hbs = require("express-handlebars"),
+	compression = require('compression'),
+	hlpr = require("./mods/hlpr")
+
+global.log = (...args) => console.log(...args);
+global.j = require("path").join
+global.basename = require("path").basename
+app.locals.env = process.env.NODE_ENV == "production" ? "pro" : "dev"
+app.locals.port = process.env.PORT || 3000
+
+let imgs = hlpr.readdir
+let engine = hbs.create({
 		defaultLayout: 'main',
 		helpers: {
 			hn () {
@@ -15,16 +26,9 @@ const exp = require("express"),
 			}
 		},
 		extname: '.hbs'
-	}),
-	compression = require('compression')
+	}).engine
 
-global.log = (...args) => console.log(...args);
-global.j = require("path").join
-global.basename = require("path").basename
-app.locals.env = process.env.NODE_ENV == "production" ? "pro" : "dev"
-app.locals.port = process.env.PORT || 3000
-
-app.engine('.hbs', hbs.engine);
+app.engine('.hbs', engine);
 app.set('view engine', '.hbs');
 app.set('views', j(__dirname, "static", "views"));
 

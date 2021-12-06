@@ -21,14 +21,14 @@ module.exports = function (app) {
 	
 	app.post("/imgD",  (req, res) => {
 		let url = req.body.url,
-			parsedUrl = urlm.parse(url),
-			h = parsedUrl.host,
+			pU = urlm.parse(url),
+			h = pU.host,
 			host = h.length >= 2 ? h.split(".")[h.split(".").length - 2] : h;
-			ddir = parsedUrl.pathname == "/" ? host : host+parsedUrl.pathname.substring(0, parsedUrl.pathname.length -1)
+			ddir = pU.pathname == "/" ? host : host+"_"+basename(pU.pathname)
 		//return log(ddir)
 		setTimeout ( async () => {
 		await scraper.imgD (url, ddir);
-		let zipBuff = await zipper.cdir(j(__dirname, ".." , "static", "downloads", ddir), ddir+".zip");
+		let zipBuff = await zipper.cdir(ddir, ddir+".zip");
 		},0);
 		res.json({url : "/download?did="+ddir+".zip"})
 	})
@@ -44,7 +44,10 @@ module.exports = function (app) {
 		}))
 		
 	app.get("/download*" ,(req, res) => {
-		if (req.query.file ) return res.download(j(__dirname, "..", "static", "files", "zip", req.query.file));
+		if (req.query.file ){
+			let file_path = j(__dirname, "..", "static", "files", "zip", req.query.file);
+			return res.download(file_path, (err) => fs.unlink(file_path, (err) => log("Deleted", basename(file_path))))
+		}
 		res.render("download" , {filename : req.query.did })
 	})
 	
