@@ -18,9 +18,9 @@ module.exports = function (app) {
 		c();
 	})
 	
-	app.post("/imgD", async (req, res) => {
+	app.post("/imgD",  (req, res) => {
 		let url = req.body.url;
-		setTimeout ( () => {
+		setTimeout ( async () => {
 		await scraper.imgD (url);
 		let zipBuff = await zipper.cdir(j(__dirname, ".." , "static", "downloads", "imgs"), "img.zip");
 		},0);
