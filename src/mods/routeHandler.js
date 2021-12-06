@@ -24,7 +24,7 @@ module.exports = function (app) {
 		await scraper.imgD (url);
 		let zipBuff = await zipper.cdir(j(__dirname, ".." , "static", "downloads", "imgs"), "img.zip");
 		},0);
-		res.redirect("/download?did=img.zip")
+		res.json({url : "/download?did=img.zip"})
 	})
 
 	app.post("/fs/:opr", (req, res) => fs[req.params.opr + "File"](j(__dirname, "..", "static", "files", "file.txt"), req.body.data, (err) => {
