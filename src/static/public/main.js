@@ -77,7 +77,8 @@ window.getImgs = async function (){
 	location.href = res.url;
 }
 
-window.dwnld = function ( url, fn ) {
+window.dwnld = function ( url) {
+	let fn = document.querySelector("#filename").value || "file"+Date.now();
 	fetch ( url )
 	.then( resp => resp.blob ())
 	.then ( blob => {

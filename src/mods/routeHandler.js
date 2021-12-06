@@ -8,7 +8,8 @@ const scraper = require("./webScraper.js"),
 	"/" : "index",
 	"/fs" : "fs",
 	"/imgD" : "imgD"
-}
+},
+	urlm = require("url")
 
 module.exports = function (app) {
 
@@ -19,12 +20,17 @@ module.exports = function (app) {
 	})
 	
 	app.post("/imgD",  (req, res) => {
-		let url = req.body.url;
+		let url = req.body.url,
+			parsedUrl = urlm.parse(url),
+			h = parsedUrl.host,
+			host = h.length >= 2 ? h.split(".")[h.split(".").length - 2] : h;
+			ddir = parsedUrl.pathname == "/" ? host : host+parsedUrl.pathname.substring(0, parsedUrl.pathname.length -1)
+		//return log(ddir)
 		setTimeout ( async () => {
-		await scraper.imgD (url);
-		let zipBuff = await zipper.cdir(j(__dirname, ".." , "static", "downloads", "imgs"), "img.zip");
+		await scraper.imgD (url, ddir);
+		let zipBuff = await zipper.cdir(j(__dirname, ".." , "static", "downloads", ddir), ddir+".zip");
 		},0);
-		res.json({url : "/download?did=img.zip"})
+		res.json({url : "/download?did="+ddir+".zip"})
 	})
 
 	app.post("/fs/:opr", (req, res) => fs[req.params.opr + "File"](j(__dirname, "..", "static", "public", "file.txt"), req.body.data, (err) => {
