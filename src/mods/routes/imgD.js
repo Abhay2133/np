@@ -28,7 +28,7 @@ module.exports = async ( req, res ) => {
 			cr.process.push("Saving images in server !", "Compressing Images into zip file", "DONE" );
 			cr.url = "/download?file=zip/"+ddir+".zip"
 		}
-		if ( isZip ) {
+		if ( isZip && ! cr.done ) {
 			cr.process.push("Compressing Images into zip file");
 		}
 		//return log("iszip : ", isZip , ", isddir :", isDdir , ", isDead : ", isDead)
