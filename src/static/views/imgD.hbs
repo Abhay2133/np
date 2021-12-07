@@ -4,11 +4,52 @@
     <input type="url" id="website_url" class="p-s m bdr rc-s d-ib w-60pg t-c bb" placeholder="Website URL" required>
     <button onclick="pressed(this, true)" class="p-5px_20px dnw rc-s" onclick="pressed(this, true)"> Submit </button>
 </form>
-<div id="console" class="m p dnw rc-s f d-no chd-div(m)">
-	<div>Searching for img tags ...</div>
+<div id="console" class="m p dnw rc-s f d-b chd-div(m)">
+	<div onclick="done(this)" ><div class="spnr"></div>Searching for img tags ...</div>
+	<div onclick="done(this)" ><div class="spnr"></div>Saving images in Server ...</div>
 </div>
 
 <div class="m p t-c">
 	<a id="dN" class="button bnw d-no"> Download Now ! </a>
 </div>
 <script>document.querySelector("title").textContent = "Image Downloader"; </script>
+
+<style>
+	.spnr {
+		display : inline-block;
+		height : 10px;
+		width : 10px;
+		border-radius : 50%;
+		border: 2px solid #fff;
+		border-top : 2px solid #333;
+		margin-right : 10px;
+		position : relative;
+		top : 3px;
+		animation : rot 0.5s linear 0s infinite normal;
+	}
+	
+	@keyframes rot {
+		from { transform : rotate(0deg); }
+		to { transform : rotate(360deg); }
+	}
+	
+	.tick {
+		border : 2px solid #fff;
+		transform : rotate(-45deg);
+		display : inline-block;
+		border-radius: 3px;
+		margin-right : 10px;
+		height : 5px ; width : 10px;
+		border-color : transparent transparent #fff #fff;
+		position: relative;
+		top: -1px;
+	}
+</style>
+
+<script>
+	function done ( tag ) {
+		tag.children[0].className = "tick";
+	}
+</script>
+
+

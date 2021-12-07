@@ -68,9 +68,9 @@ window.getImgs = async function (){
 	const siteURL = document.querySelector("#website_url").value;
 	if( ! siteURL ) return log("Error : url is empty");
 	//if( ! navigator.onLine ) return elog("U r offline");
-	let req, res,
-		cnsol = document.querySelector("#console")
-	cnsol.style.display = "block"
+	let req, res;
+	const psh = new psH();
+	
 	while(true){
 		try {
 		req = await fetch("/imgD", {
@@ -81,8 +81,9 @@ window.getImgs = async function (){
 		} catch (e) { await wait(2000); continue; };
 		res = await req.json();
 		let process = res.process;
-		cnsol.innerHTML = ""
-		process.forEach ( (txt) => cnsol.innerHTML += "<div>"+txt+"</div>" );
+		//cnsol.innerHTML = ""
+		//process.forEach ( (txt) => cnsol.innerHTML += "<div>"+txt+"</div>" );
+		psh.h(process, res.done);
 		if( ! ! res.done ) break;
 		await wait(3000);
 	}
@@ -111,3 +112,40 @@ window.dwnld = function ( url) {
 	})
 	.then( txt => log("Download Started !"))
 }
+
+function cnsl () {
+	const me = this;
+	this.cnsl = document.querySelector("#console")
+	this.cnsl.style.display = "block"
+	this.cnsl.innerHTML = ''
+	this.process = newTag("div");
+	this.log = (txt) => {
+		if ( ! ! me.process.children.length) me.done ()
+		me.process  = newTag("div")
+		let d = me.process
+		d.innerHTML += "<div class='spnr' ></div>" + txt
+		this.cnsl.appendChild(d);
+	}
+	this.done = () => {
+		//log(me.process.children.length)
+		me.process.children[0].className = "tick";
+	}
+}
+
+function psH () {
+	this.cnsl = new cnsl ();
+	const me = this;
+	this.len = 0;
+	this.h = async ( ps , done ) => {
+		
+		for ( let i = me.len ; i < ps.length ; i++) {
+			me.cnsl.log( ps[i])
+			await wait(100);
+		}
+		me.len = ps.length;
+		log("done :", done)
+		if ( done ) me.cnsl.done();
+	}
+}
+
+const newTag = ( name ) => document.createElement(name)
