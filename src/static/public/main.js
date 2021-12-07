@@ -86,7 +86,13 @@ window.getImgs = async function (){
 		if( ! ! res.done ) break;
 		await wait(3000);
 	}
-	setTimeout(()=> {location.href = res.url}, 500)
+	setTimeout(()=> {
+		let a = document.querySelector("#dN");
+		a.style.opacity = "0";
+		a.style.display = "inline-block";
+		a.href = res.url
+		setTimeout ( () => {a.style.opacity = "1" }, 0)
+	}, 500)
 	//log(res.url)
 }
 
