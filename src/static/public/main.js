@@ -116,8 +116,8 @@ window.dwnld = function ( url) {
 function cnsl () {
 	const me = this;
 	this.cnsl = document.querySelector("#console")
-	this.cnsl.style.display = "block"
 	this.cnsl.innerHTML = ''
+	this.cnsl.style.display = "block"
 	this.process = newTag("div");
 	this.log = (txt) => {
 		if ( ! ! me.process.children.length) me.done ()
