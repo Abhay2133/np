@@ -68,13 +68,26 @@ window.getImgs = async function (){
 	const siteURL = document.querySelector("#website_url").value;
 	if( ! siteURL ) return log("Error : url is empty");
 	//if( ! navigator.onLine ) return elog("U r offline");
-	let req = await fetch("/imgD", {
-		method : "POST",
-		headers : new Headers ({"Content-Type" : "application/json"}),
-		body : JSON.stringify({url : siteURL})
-	}),
+	let req, res,
+		cnsol = document.querySelector("#console")
+	cnsol.style.display = "block"
+	while(true){
+		try {
+		req = await fetch("/imgD", {
+			method : "POST",
+			headers : new Headers ({"Content-Type" : "application/json"}),
+			body : JSON.stringify({url : siteURL})
+		})
+		} catch (e) { await wait(2000); continue; };
 		res = await req.json();
-	location.href = res.url;
+		let process = res.process;
+		cnsol.innerHTML = ""
+		process.forEach ( (txt) => cnsol.innerHTML += "<div>"+txt+"</div>" );
+		if( ! ! res.done ) break;
+		await wait(3000);
+	}
+	setTimeout(()=> {location.href = res.url}, 500)
+	//log(res.url)
 }
 
 window.dwnld = function ( url) {

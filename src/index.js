@@ -9,6 +9,7 @@ const exp = require("express"),
 global.log = (...args) => console.log(...args);
 global.j = require("path").join
 global.basename = require("path").basename
+global.sdir = j(__dirname, "static");
 app.locals.env = process.env.NODE_ENV == "production" ? "pro" : "dev"
 app.locals.port = process.env.PORT || 3000
 
@@ -22,6 +23,10 @@ let engine = hbs.create({
 			},
 			eruda () {
 				let eruda = process.env.NODE_ENV == "production" ? "" : "eruda"
+				return eruda;
+			},
+			acss () {
+				let eruda = process.env.NODE_ENV == "production" ? "https://cdn2132.herokuapp.com/acss.min.js" : "http://localhost:9000/acss.min.js"
 				return eruda;
 			}
 		},

@@ -2,13 +2,15 @@ const adm = require("adm-zip-node"),
 	fs = require("fs"),
 	hlpr = require("./hlpr");
 
-function compress(files = [], out = false) {
+async function compress(files = [], out = false) {
 	return new Promise(res => {
 		const zip = new adm();
-		files.forEach((file) => zip.addLocalFile(file));
+		process.stdout.write("\ncompressing "+files.length + " files : ");
+		//fs.writeFileSync( out, "")
+		files.forEach((file) => { zip.addLocalFile(file); process.stdout.write(".")} );
 		if (out) {
 			zip.writeZip(out)
-			log("\n", files.length, "files compressed !")
+			log(" done !")
 			return res({ text: files.length + " files compressed ! " })
 		}
 		return res(zip.toBuffer())

@@ -5,11 +5,11 @@
     <title> Node Express Practice </title>
     <link rel="stylesheet" href="styles.css" />
     <script src="./{{eruda}}.js" onload="eruda.init();"></script>
-    <script>const loadjs={runJS:function(jsFiles=!1){return jsFiles=jsFiles||loadjs.files,new Promise(res=>{jsFiles.forEach(async file=>{let fn=file.name,js=await loadjs.getJS(fn,file.url);js&&(eval(js),localStorage.setItem(fn,js))}),res()})},init:async function(e=[]){e=e.concat(loadjs.files),await loadjs.runJS(e),await loadjs.check4update(e)},files:[],getJS:function(e=!1,r=!1,a=!1){return new Promise(async o=>{if(!a&&localStorage.getItem(e))return o(localStorage.getItem(e));let l;try{l=await fetch(r)}catch(e){return console.error("loadjs.getJS error : ",err.stack),o(!1)}return o(await l.text())})},addFile:function(e,r){if(!e||!r)return console.error("loadjs.addFile error : name / url not defined !");loadjs.files.push({name:e,url:r})},addFiles:function(e){if(!Array.isArray(e))return console.error("loadjs.addFiles error : required an array of objs { name, url } !");loadjs.files=loadjs.files.concat(e)},check4update:e=>new Promise(async r=>{let a=new Array;if(console.log("loadjs : Checking for Update of ",e.length,"files"),!navigator.onLine)return r(console.error("loadjs.check4update error : u r offline...."));for(let r=0;r<e.length;r++){let o=e[r],l=localStorage.getItem(o.name)||!1;if(!l)return;let t=o.name,n=await loadjs.getJS(t,o.url,!0);l!=n?(localStorage.setItem(t,n),a.push(o.name)):console.log(o.name,"is up-to-date")}r(console.log("updated :",JSON.stringify(a)))})};</script>
+    <script src="loadjs.js"></script>
     <script>
- 		loadjs.addFile("acss.js", "https://cdn2132.herokuapp.com/acss.min.js")
  		loadjs.addFile("main.js", "main.js");
  		loadjs.addFile("hlpr.js", "hlpr.js");
+ 		loadjs.addFile("acss.js", "{{acss}}")
  		loadjs.init();
   </script>
 </head>

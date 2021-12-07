@@ -22,7 +22,7 @@ const loadjs = {
 		return new Promise ( async (res) => {
 			if ( (! force) && localStorage.getItem( name )) return res(localStorage.getItem( name ));
 			let req;
-			try { req = await fetch(url) } catch (e) { console.error("loadjs.getJS error : ", err.stack); return res(false); }
+			try { req = await fetch(url) } catch (e) { console.error("loadjs.getJS error : ", e.stack); return res(false); }
 			let txt = await req.text();
 			return res(txt)
 		})
@@ -38,13 +38,14 @@ const loadjs = {
 	check4update : (objs) => new Promise (async (res) => {
 		let ufs = new Array ();
 		console.log("loadjs : Checking for Update of ", objs.length, "files" );
-		if ( ! navigator.onLine) return res(console.error("loadjs.check4update error : u r offline...."))
+		//if ( ! navigator.onLine) return res(console.error("loadjs.check4update error : u r offline...."))
 			for(let i=0; i < objs.length ; i++) {
 				let obj = objs[i];
 				let lsc = localStorage.getItem( obj.name) || false;
 				if ( ! lsc ) return;
 				let fn = obj.name,
 					js = await loadjs.getJS(fn, obj.url, true)
+				if ( ! js ) continue;
 				if ( lsc == js ){  console.log(obj.name, "is up-to-date"); continue}
 				 localStorage.setItem(fn, js);
 				ufs.push(obj.name);
