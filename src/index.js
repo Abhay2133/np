@@ -44,6 +44,6 @@ app.use(bodyParser.json())
 app.use(compression())
 rh(app);
 
-app.listen(app.locals.port, () => log("Server started at port :", app.locals.port))
+app.listen(app.locals.port, () => log("Server started at "+require("os").hostname() + ":" + app.locals.port))
 
 }
