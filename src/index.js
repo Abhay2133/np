@@ -1,3 +1,5 @@
+module.exports = () => {
+
 const exp = require("express"),
 	app = exp(),
 	rh = require("./mods/routeHandler.js"),
@@ -43,3 +45,5 @@ app.use(compression())
 rh(app);
 
 app.listen(app.locals.port, () => log("Server started at port :", app.locals.port))
+
+}

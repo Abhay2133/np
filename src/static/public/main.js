@@ -115,7 +115,7 @@ window.dwnld = function ( url) {
 
 function cnsl () {
 	const me = this;
-	this.cnsl = document.querySelector("#console")
+	this.cnsl = document.querySelector("#console-body")
 	this.cnsl.innerHTML = ''
 	this.cnsl.style.display = "block"
 	this.process = newTag("div");
@@ -132,7 +132,7 @@ function cnsl () {
 	}
 }
 
-function psH () {
+function psH () { // process Handler
 	this.cnsl = new cnsl ();
 	const me = this;
 	this.len = 0;
