@@ -2,14 +2,28 @@
 <meta name="viewport" content="width=device-width, scale=1">
 
 <head>
+	{{#unless title}}
     <title> Node Express Practice </title>
+    {{/unless}}
+	{{#if title}}
+    <title> {{title}} </title>
+    {{/if}}
     <link rel="stylesheet" href="styles.css" />
-    <script src="./{{eruda}}.js" onload="eruda.init();"></script>
+    {{#if (isDev)}}
+    <script src="./eruda.js" onload="eruda.init();"></script>
+    {{/if}}
+
+    {{#if (isDev)}}
     <script src="/loadjs.js"></script>
+    {{/if}}
+    
+    {{#unless (isDev)}}
+    <script>{{{loadjs}}}</script>
+    {{/unless}}
     <script>
  		loadjs.addFile("main.js", "main.js");
  		loadjs.addFile("hlpr.js", "hlpr.js");
- 		loadjs.addFile("acss.js", "{{acss}}")
+ 		loadjs.addFile("acss.js", "{{#if (isDev)}}http://localhost:9000/{{/if}}{{#unless (isDev)}}http://cdn2132.herokuapp.com/{{/unless}}acss.min.js" )
  		loadjs.init();
   </script>
 </head>
@@ -18,9 +32,14 @@
 </style>
 <body class="d-b m-n pc(pos-rel,w-500p,left-50pg,m-L-_250p) " id="body">
 
-<h1 class="m-n p-l t-c bg-eee fw-300 f-xxl m-B txtdc-no" >
-	<a href="{{hn}}"> Node Express Practice </a> 
+<div class="bdr h-50p">
+<div class="hmbgr dnw d-ib p-n t-c rc-s m-xs h-40p w-40p chd-hr(m-n,m-T-9p,p-n,w-25p,d-ib,bdr,rc-s)">
+	<hr><hr><hr>
+</div>
+<h1 class="d-ib m-7p t-c fw-300 f-xxl txtdc-no m-n" >
+	<a href="{{hn}}"> {{mainHeading}} {{#unless mainHeading}} Node Express Practice {{/unless}} </a> 
 </h1>
+</div>
 
 {{{body}}}
 

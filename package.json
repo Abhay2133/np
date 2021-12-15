@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/cluster.js",
   "scripts": {
-    "test": "clear && nodemon",
+    "test": "clear && nodemon src/app.js",
     "start": "node ."
   },
   "repository": {

@@ -7,7 +7,8 @@ const scraper = require("./webScraper.js"),
 	routes = {
 	"/" : "index",
 	"/fs" : "fs",
-	"/imgD" : "imgD"
+	"/imgD" : "imgD",
+	"/fm" : "fm"
 },
 	urlm = require("url")
 
@@ -21,6 +22,8 @@ module.exports = function (app) {
 			if (err) return res.json({ text: err.stack })
 			res.json({ text: "File Written ! " })
 		}))
+	
+	app.post("/fm", (...args) => require("./routes/fm")() )
 	
 	app.get("/fs/read", (req, res) => fs.readFile(j(__dirname, "..", "static", "public", "file.txt"), (err, txt) => {
 			if (err) return res.json({ text: "File is Empty" })

@@ -1,5 +1,5 @@
 const cluster = require('cluster');
-const app = require('./index');
+const app = require('./bin/index');
 const numCPUs = require('os').cpus().length;
 
 if (cluster.isMaster) {

@@ -89,6 +89,11 @@ window.getImgs = async function (){
 	}
 	setTimeout(()=> {
 		let a = document.querySelector("#dN");
+		a.addEventListener("click", function () {
+			setTimeout( () => {
+				a.style.display = "none";
+			}, 2000);
+		})
 		a.style.opacity = "0";
 		a.style.display = "inline-block";
 		a.href = res.url
@@ -115,7 +120,9 @@ window.dwnld = function ( url) {
 
 function cnsl () {
 	const me = this;
-	this.cnsl = document.querySelector("#console-body")
+	document.querySelector("#console").style.height = "auto";
+	document.querySelector("#console").style.padding = "10px";
+	this.cnsl = document.querySelector(".console-body")
 	this.cnsl.innerHTML = ''
 	this.cnsl.style.display = "block"
 	this.process = newTag("div");

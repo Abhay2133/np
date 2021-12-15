@@ -22,7 +22,7 @@ const loadjs = {
 		return new Promise ( async (res) => {
 			if ( (! force) && localStorage.getItem( name )) return res(localStorage.getItem( name ));
 			let req;
-			try { req = await fetch(url) } catch (e) { console.error("loadjs.getJS error : ", e.stack); return res(false); }
+			try { req = await fetch(url) } catch (e) { console.error("loadjs.getJS error("+name+","+url+") : ", e.stack); return res(false); }
 			let txt = await req.text();
 			return res(txt)
 		})
