@@ -8,7 +8,7 @@ global._port = process.env.PORT || 3000
 
 const exp = require("express"),
 	app = exp(),
-	rh = require("./routeHandler.js"),
+	rh = require("./routes/routeHandler.js"),
 	bodyParser = require('body-parser'),
 	compression = require('compression'),
 	hlpr = require("./hlpr"),

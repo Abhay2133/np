@@ -1,21 +1,29 @@
 const { Stream } = require("stream");
-const scraper = require("./webScraper.js"),
+const scraper = require("../webScraper.js"),
 	colors = require("colors"),
 	fs = require("fs"),
-	zipper = require("./zipper"),
-	hlpr = require("./hlpr.js"),
-	routes = {
-	"/" : "index",
-	"/fs" : "fs",
-	"/imgD" : "imgD",
-	"/fm" : "fm"
-},
+	zipper = require("../zipper"),
+	hlpr = require("../hlpr.js"),
+	routes = require("./staticRoutes.json"),
 	urlm = require("url")
 
 module.exports = function (app) {
+	
+	app.use( (req, res, next ) => {
+		log(colors.green(req.method), req.url);
+		next ();
+	})
+	
+	app.use((a, b, c) => {
+		if ( Object.keys(routes).includes(a.url) && a.method == "GET" ){ 
+			let {view, title, mainHeading } = routes[a.url];
+			return b.render(view , {title : title, mainHeading : mainHeading});
+		}
+		c();
+	})
 
 	app.post("/imgD",  (...args) => {
-		require("./routes/imgD.js")(...args);
+		require("./imgD.js")(...args);
 	})
 
 	app.post("/fs/:opr", (req, res) => fs[req.params.opr + "File"](j(__dirname, "..", "static", "public", "file.txt"), req.body.data, (err) => {
@@ -23,7 +31,7 @@ module.exports = function (app) {
 			res.json({ text: "File Written ! " })
 		}))
 	
-	app.post("/fm", (...args) => require("./routes/fm")() )
+	app.post("/fm", (...args) => require("./fm")() )
 	
 	app.get("/fs/read", (req, res) => fs.readFile(j(__dirname, "..", "static", "public", "file.txt"), (err, txt) => {
 			if (err) return res.json({ text: "File is Empty" })
@@ -45,13 +53,7 @@ module.exports = function (app) {
 	})
 	
 	app.get("/gallery",  (...args) => {
-		require("./routes/gallery.js")(...args);
-	})
-	
-	app.use((a, b, c) => {
-		//log(colors.green(a.method), a.url);
-		if ( Object.keys(routes).includes(a.url) && a.method == "GET" ) return b.render(routes[a.url]);
-		c();
+		require("./gallery.js")(...args);
 	})
 	
 }
