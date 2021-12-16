@@ -32,47 +32,24 @@
 </style>
 <body class="d-b m-n pc(pos-rel,w-500p,left-50pg,m-L-_250p) " id="body">
 
-<div class="t-c bg-eee p-s h-a">
-<!--
-<div class="hmbgr dnw d-ib p-n t-c rc-s m-xs h-40p w-40p chd-hr(m-n,m-T-9p,p-n,w-25p,d-ib,bdr,rc-s)">
-	<hr><hr><hr>
-</div>
--->
+<div class="t-c bg-eee p-s h-a pos-rel pos-fxd w-100pg top-0p left-0p">
+<div id="hmbgr" class="" onclick="thmbgr(tsp)" > <hr><hr><hr> </div>
 <h1 class="d-ib m-7p t-c fw-300 f-xxl txtdc-no m-n" >
 	<a href="{{hn}}"> {{mainHeading}} {{#unless mainHeading}} Node Express Practice {{/unless}} </a> 
 </h1>
 </div>
+<div id="sidePanel" class="top-53p left-0p zi-999999">
+	<div class="item"> HOME </div>
+	<div class="item"> Contact me </div>
+	<div class="item"> About me </div>
+</div>
 
+<div id="viewport" class="m-T-60p">
 {{{body}}}
-
+</div>
 </body>
 
-	
 <style>
-	button, .button {
-		box-shadow : 0px 4px 1px #666;
-		cursor: pointer;
-		padding : 5px 20px;
-		border : 1px solid transparent;
-		border-radius : 5px;
-		transition : 0.2s;
-		display : inline-block;
-		transform : translateY(0px);
-		user-select: none;
-	}
-	
-	.button:active {
-		box-shadow : 0px 1px 1px #666;
-		transform : translateY(3px);
-	}
-
-	a {
-		text-decoration: none;
-		color: black;
-	}
-	
-	* {
-		outline : none;
-	}
+	{{{style}}}
 </style>
 </html>
