@@ -42,7 +42,7 @@ module.exports = async ( req, res ) => {
 		res.json(cr)
 }
 
-const  sdirp = (...dirs) => j(__dirname, "..", "..", "static" , ...dirs), // sdirp => static dir path
+const  sdirp = (...dirs) => j(sdir, ...dirs), // sdirp => static dir path
 	isddir = (ddir) => fs.existsSync (sdirp("downloads", ddir)),
 	iszip = (ddir) => fs.existsSync(sdirp("files", "zip", ddir+".zip"))
 

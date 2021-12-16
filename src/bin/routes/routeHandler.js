@@ -42,7 +42,7 @@ module.exports = function (app) {
 		
 	app.get("/download*" ,(req, res) => {
 		if (req.query.file ){
-			let file_path = j(__dirname, "..", "static", "files", req.query.file);
+			let file_path = j(sdir, "files", req.query.file);
 			return res.download(file_path, (err) => fs.unlink(file_path, (err) => log("Deleted", basename(file_path))))
 		}
 		res.render("download" , {filename : basename(req.query.did), url : req.query.did })

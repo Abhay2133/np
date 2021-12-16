@@ -33,7 +33,7 @@ return new Promise (async ( res ) => {
 			try {
 				let d = new dwn({
 					url: src,
-					directory: j(__dirname, "..", "static", "downloads", ddir),
+					directory: j(sdir, "downloads", ddir),
 					cloneFiles: false,
 					fileName: name + ".png"
 				})
