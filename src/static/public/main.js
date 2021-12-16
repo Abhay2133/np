@@ -9,7 +9,7 @@ window.pressed = function ( tag , bs = false){
     setTimeout(() => {
         tag.style.transform = "translateY(0px)";
     	if(bs) tag.style.boxShadow = "0px 4px 1px #666"
-    }, 250)
+    }, 300)
 }
 
 window.post = async function (url){

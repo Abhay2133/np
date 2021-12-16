@@ -14,6 +14,8 @@ module.exports = function (app) {
 		next ();
 	})
 	
+	app.post("/uploads", (...args) => require("./uploads")(...args));
+	
 	app.use((a, b, c) => {
 		if ( Object.keys(routes).includes(a.url) && a.method == "GET" ){ 
 			let {view, title, mainHeading } = routes[a.url];
@@ -26,14 +28,14 @@ module.exports = function (app) {
 		require("./imgD.js")(...args);
 	})
 
-	app.post("/fs/:opr", (req, res) => fs[req.params.opr + "File"](j(__dirname, "..", "static", "public", "file.txt"), req.body.data, (err) => {
+	app.post("/fs/:opr", (req, res) => fs[req.params.opr + "File"](j(sdir, "public", "file.txt"), req.body.data, (err) => {
 			if (err) return res.json({ text: err.stack })
 			res.json({ text: "File Written ! " })
 		}))
 	
 	app.post("/fm", (...args) => require("./fm")() )
 	
-	app.get("/fs/read", (req, res) => fs.readFile(j(__dirname, "..", "static", "public", "file.txt"), (err, txt) => {
+	app.get("/fs/read", (req, res) => fs.readFile(j(sdir, "public", "file.txt"), (err, txt) => {
 			if (err) return res.json({ text: "File is Empty" })
 			res.json({ text: txt.toString() })
 		}))
