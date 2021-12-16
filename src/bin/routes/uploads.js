@@ -1,9 +1,15 @@
-const formidable = require("formidable")
+const formidable = require("formidable"),
+	fs = require("fs")
 
-module.exports = (req, res) => {
-	const form = new formidable.IncomingForm({uploadDir : j(sdir, "files", "uploads")})
+module.exports = async (req, res) => {
+	const udir =  j(sdir, "files", "uploads").toString();
+	if ( ! fs.existsSync(udir))  fs.mkdirSync(udir, {recursive : true});
+	const form = new formidable.IncomingForm({uploadDir : udir})
 	form.parse( req, (err, fields, files) => {
 		if (err) return res.json(err);
-		res.json({ status : "Done" });
+		let newFilename = j(udir,files.file.newFilename),
+			originalFilename = j(udir, files.file.originalFilename)
+		fs.rename(newFilename,originalFilename, (err) => {if(err) log(err)})
+		res.json(files);
 	});
 }
