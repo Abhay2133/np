@@ -1,5 +1,3 @@
-const fs = require("fs")
+const fs = require("fs");
 
-module.exports = ( req, res , next ) => {
-	
-}
+module.exports = (req, res, next) => {};
