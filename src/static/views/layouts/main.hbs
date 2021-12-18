@@ -10,22 +10,26 @@
     {{/if}}
     <link rel="stylesheet" href="styles.css" />
     {{#if (isDev)}}
-    <script src="./eruda.js" onload="eruda.init();"></script>
+    <script src="js/eruda.js" onload="eruda.init();"></script>
     {{/if}}
 
     {{#if (isDev)}}
-    <script src="/loadjs.js"></script>
+    <script src="js/loadjs.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/hlpr.js"></script>
+    <script src="js/test.js"></script>
+    <script src="http://localhost:9000/acss.min.js"></script>
     {{/if}}
     
     {{#unless (isDev)}}
     <script>{{{loadjs}}}</script>
-    {{/unless}}
     <script>
- 		loadjs.addFile("main.js", "main.js");
- 		loadjs.addFile("hlpr.js", "hlpr.js");
- 		loadjs.addFile("acss.js", "{{#if (isDev)}}http://localhost:9000/{{/if}}{{#unless (isDev)}}http://cdn2132.herokuapp.com/{{/unless}}acss.min.js" )
+ 		loadjs.addFile("main.js", "/js/main.js");
+ 		loadjs.addFile("hlpr.js", "/js/hlpr.js");
+ 		loadjs.addFile("acss.js", "http://cdn2132.herokuapp.com/acss.min.js" )
  		loadjs.init();
   </script>
+    {{/unless}}
 </head>
 <style>
 	body { display : none; font-family : calibri }
@@ -35,11 +39,11 @@
 <div class="t-c bg-eee p-s h-a pos-rel pos-fxd w-100pg top-0p left-0p">
 <div id="hmbgr" class="" onclick="thmbgr(tsp)" > <hr><hr><hr> </div>
 <h1 class="d-ib m-7p t-c fw-300 f-xxl txtdc-no m-n" >
-	<a href="{{hn}}"> {{mainHeading}} {{#unless mainHeading}} Node Express Practice {{/unless}} </a> 
+	 {{mainHeading}} {{#unless mainHeading}} Node Express Practice {{/unless}}
 </h1>
 </div>
 <div id="sidePanel" class="top-53p left-0p zi-999999">
-	<div class="item"> HOME </div>
+	<a href="{{hn}}" class="item" onclick="setTimeout(()=> location.href = this.href, 300); return false"> HOME </a>
 	<div class="item"> Contact me </div>
 	<div class="item"> About me </div>
 </div>

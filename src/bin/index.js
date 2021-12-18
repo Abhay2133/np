@@ -13,7 +13,8 @@ const exp = require("express"),
 	compression = require('compression'),
 	hlpr = require("./hlpr"),
 	exec = require("child_process").exec,
-	engine = await require("./templateEngine")()
+	engine = await require("./templateEngine")(),
+	cors = require("cors");
 
 app.locals.env = process.env.NODE_ENV == "production" ? "pro" : "dev"
 app.locals.port = _port
@@ -30,8 +31,9 @@ if( app.locals.env == "dev") exec("termux-open-url http://"+require("os").hostna
 });
 
 app.use(exp.static(j(sdir, "public")));
-app.use(bodyParser.json())
+app.use(exp.json())
 app.use(compression())
+if ( process.env.NODE_ENV !== "production") app.use(cors());
 rh(app);
 
 app.listen(app.locals.port, () => log("Server started at "+require("os").hostname() + ":" + _port, `in ${app.locals.env} mode`))
