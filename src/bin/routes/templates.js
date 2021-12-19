@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-module.exports = () => {
+module.exports = (req, res) => {
 	return {
 		"/": { view: "index", title: false, mainHeading: "" },
 		"/?": { view: "index", title: false, mainHeading: "" },
@@ -14,7 +14,7 @@ module.exports = () => {
 			view: "fm",
 			title: "File Manager",
 			mainHeading: "File Manager",
-			ls: require("./fm").ls()
+			ls: require("./fm").ls(),
 		},
 		"/uploads": {
 			view: "uploads",
@@ -24,4 +24,3 @@ module.exports = () => {
 		},
 	};
 };
-

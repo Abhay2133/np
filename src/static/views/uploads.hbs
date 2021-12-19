@@ -1,14 +1,17 @@
-<form class="m-s p rc-s t-c bg-3c9" onsubmit="_upload(this); return false;" >
+<form class="m-s p rc-s t-c bg-3c9" onsubmit="_upload(this); return false;">
 
-<input id="file" name="file" type="file"  class="m-s p-s bdr rc-s t-c" />
-<button onclick="pressed(this, true)" class="m" > Submit </button>
+	<input id="file" name="file" type="file" class="m-s p-s bdr rc-s t-c" />
+	<button onclick="pressed(this, true)" class="m"> Submit </button>
 
 </form>
 
-<div class="files chd-div(d-flx,bdr,rc-s,f-l,p-s,m-s,chd-img(h-20p,w-20p,m-n,pos-rel,p-n),chd-span(m-0px_10px,p-L,bdr-L,d-b,ws-nw,ovrflw-scrl))">
+<div
+	class="files chd-div(d-flx,bdr,rc-s,f-l,p-s,m-s,chd-img(h-20p,w-20p,m-n,pos-rel,p-n),chd-span(m-0px_10px,p-L,bdr-L,d-b,ws-nw,ovrflw-scrl))"
+>
 	<h3 class="m-s p-s rc-s bg-FF6600 t-c">Uploaded Files ...</h3>
 	{{#each files}}
-		<div> <img src="/icons/file.png" class="icon" >
+		<div>
+			<img src="/icons/file.png" class="icon" />
 			<span>{{this}} </span>
 		</div>
 	{{/each}}

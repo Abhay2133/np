@@ -21,7 +21,7 @@ module.exports = function (app) {
 	app.post("/uploads", (...args) => require("./uploads")(...args));
 
 	app.use((req, res, next) => {
-		let templates = require("./templates.js")(req, res)
+		let templates = require("./templates.js")(req, res);
 		if (Object.keys(templates).includes(req.url) && req.method == "GET") {
 			let template = templates[req.url];
 			return res.render(template.view, template);
@@ -80,4 +80,9 @@ module.exports = function (app) {
 	app.get("/getUploads", (req, res) =>
 		res.json(fs.readdirSync(j(sdir, "files", "uploads")))
 	);
+	
+	app.get("/ab*", (req, res) => {
+		log(req.params);
+		res.send(req.params["0"])
+	})
 };

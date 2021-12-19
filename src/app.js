@@ -1,1 +1,1 @@
-require("./bin/index.js")()
+require("./bin/index.js")();

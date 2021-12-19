@@ -1,13 +1,29 @@
-
 <div id="writer" class="t-c bg-eef p m rc-s">
 	<h3 class="p dnw rc m-n m-B"> Write and Read </h3>
-	<input id="data-in" required placeholder = " Type text here ..." class="d-b bb w-100pg out-no p-s bdr rc-s "  />
-	<button onclick="pressed(this, true); post('fs/write')" class="m-T bg-eee p-5px_20px bdr rc-s"> Write</button>
-	<button onclick="pressed(this, true); post('fs/append')" class="m-T bg-eee p-5px_20px bdr rc-s"> Append </button>
+	<input
+		id="data-in"
+		required
+		placeholder=" Type text here ..."
+		class="d-b bb w-100pg out-no p-s bdr rc-s"
+	/>
+	<button
+		onclick="pressed(this, true); post('fs/write')"
+		class="m-T bg-eee p-5px_20px bdr rc-s"
+	> Write</button>
+	<button
+		onclick="pressed(this, true); post('fs/append')"
+		class="m-T bg-eee p-5px_20px bdr rc-s"
+	> Append </button>
 </div>
 
-<div id="reader" class="p m t-c m-T ">
-	<div id="data-out" class="bdr rc-s p-l" style="word-break: break-all;"> Data wil be displayed here ... </div>
-	<button onclick="pressed(this, true); read();" class="m-T bg-eee p-5px_20px bdr rc-s"> Read </button>
+<div id="reader" class="p m t-c m-T">
+	<div id="data-out" class="bdr rc-s p-l" style="word-break: break-all;">
+		Data wil be displayed here ...
+	</div>
+	<button
+		onclick="pressed(this, true); read();"
+		class="m-T bg-eee p-5px_20px bdr rc-s"
+	> Read </button>
 </div>
-<script>document.querySelector("title").textContent = "NodeJS fs Module"; </script>
+<script>document.querySelector("title").textContent = "NodeJS fs Module";
+</script>
