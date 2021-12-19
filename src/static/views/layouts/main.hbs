@@ -14,11 +14,14 @@
     {{/if}}
 
     {{#if (isDev)}}
-    <script src="js/loadjs.js"></script>
+    <script src="js/loadjs2.js"></script>
     <script src="js/main.js"></script>
     <script src="js/hlpr.js"></script>
     <script src="js/test.js"></script>
-    <script src="http://localhost:9000/acss.min.js"></script>
+    <script>
+		let acs = new _loadjs([["acss", "http://localhost:9000/acss.min.js"]])
+		acs.init()
+	</script>
     {{/if}}
     
     {{#unless (isDev)}}

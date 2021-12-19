@@ -4,4 +4,13 @@
 <button onclick="pressed(this, true)" class="m" > Submit </button>
 
 </form>
+
+<div class="files chd-div(d-flx,bdr,rc-s,f-l,p-s,m-s,chd-img(h-20p,w-20p,m-n,pos-rel,p-n),chd-span(m-0px_10px,p-L,bdr-L,d-b,ws-nw,ovrflw-scrl))">
+	<h3 class="m-s p-s rc-s bg-FF6600 t-c">Uploaded Files ...</h3>
+	{{#each files}}
+		<div> <img src="/icons/file.png" class="icon" >
+			<span>{{this}} </span>
+		</div>
+	{{/each}}
+</div>
 {{#if (isDev)}}<script src="js/upload.js"></script> {{/if}}

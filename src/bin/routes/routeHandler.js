@@ -4,31 +4,29 @@ const scraper = require("../webScraper.js"),
   fs = require("fs"),
   zipper = require("../zipper"),
   hlpr = require("../hlpr.js"),
-  routes = require("./staticRoutes.json"),
+  templates = require("./templates.js")(),
   urlm = require("url");
 
 module.exports = function (app) {
   app.use((req, res, next) => {
-    let clr = "green"
-    switch ( req.method ) {
-    	case "POST" : clr = "yellow"
-    		break;
-    	case "PUT" : clr = "blue"
-    		break;
-    	case "DELETE" : clr = "red"
-    }
-    log(colors[clr](req.method), req.url);
+    let mc = {
+    	GET : "green",
+    	POST : "yellow",
+    	PUT : "blue",
+    	DELETE : "red"
+   	}
+    log(colors[mc[req.method]](req.method), req.url);
     next();
   });
 
   app.post("/uploads", (...args) => require("./uploads")(...args));
 
-  app.use((a, b, c) => {
-    if (Object.keys(routes).includes(a.url) && a.method == "GET") {
-      let { view, title, mainHeading } = routes[a.url];
-      return b.render(view, { title: title, mainHeading: mainHeading });
+  app.use((req, res, next) => {
+    if (Object.keys(templates).includes(req.url) && req.method == "GET") {
+    	let template = templates[req.url] ;
+      return res.render(template.view, template);
     }
-    c();
+    next();
   });
 
   app.post("/imgD", (...args) => {
@@ -78,4 +76,7 @@ module.exports = function (app) {
   app.get("/gallery", (...args) => {
     require("./gallery.js")(...args);
   });
+  
+  app.get("/getUploads", (req, res) => res.json(fs.readdirSync(j(sdir, "files", "uploads"))))
 };
+

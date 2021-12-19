@@ -1,6 +1,5 @@
-const log = (...a) => console.log(...a);
 
-function loadjs(files = []) {
+window._loadjs = function (files = []){
   const me = this;
   this.files = files;
   this.ufs = [];
@@ -18,10 +17,10 @@ function loadjs(files = []) {
     });
   this.getJs = (name, url) =>
     new Promise(async (res) => {
-      log("getJs :", name);
+      console.log("getJs :", name);
       let lsc = localStorage.getItem(name) || false;
       if (lsc) return res(lsc);
-      log("getJs : fetching", url);
+      console.log("getJs : fetching", url);
       let req = await fetch(url);
       txt = (await req.text()) || "";
       res(txt);
@@ -30,7 +29,7 @@ function loadjs(files = []) {
   this.c4u = (cb = () => null) =>
     new Promise(async (res) => {
       let n = me.files.length > 1 ? "files" : "file";
-      log("loadjs.c4u : Checking for update of", me.files.length, n);
+      console.log("loadjs.c4u : Checking for update of", me.files.length, n);
       for (let file of me.files) {
         let [name, url] = file,
           lsc = localStorage.getItem(name) || false;
@@ -44,12 +43,7 @@ function loadjs(files = []) {
         me.ufs.lengh > 0
           ? "loadjs.c4u : updated files are" + JSON.stringify(me.ufs)
           : "All Files are Up-to-date !";
-      log(m);
+      console.log(m);
       res(cb());
     });
 }
-
-let ljs = new loadjs(),
-  files = [["test", "http://localhost:3000/js/test.js"]];
-
-ljs.init(files);
