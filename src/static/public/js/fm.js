@@ -2,9 +2,10 @@
 window._qsa = ( q ) => document.querySelectorAll(q)
 window._qs = ( q ) => document.querySelector(q);
 
-window._fileManager = function (root) {
+window._fileManager = function (pwd = false) {
 	this.bn = location.href.split("/")[location.href.split("/").length -1]
 	const me = this;
+	this.pwd = pwd || ""
 	this.ce = (name ,ih) => {let tag = document.createElement(name) ; tag.innerHTML = ih ; return tag}
 	this.setPwd = (pwd) => {
 		var pwd = pwd.split("");
@@ -21,7 +22,10 @@ window._fileManager = function (root) {
 			method : "POST",
 			headers : (new Headers({"Content-Type" : "application/json"})),
 			body : JSON.stringify({opr : "ls", path : dir})
-		})).json() || false
+		})).text() || false;
+		try {
+			ls = JSON.parse(ls)
+		} catch (e) { return log (ls)}
 		if( ls.error ) return log(ls.error);
 		this.pwd = ls.pwd
 		if ( ls ) me.render(ls, me.setPwd(ls.pwd))

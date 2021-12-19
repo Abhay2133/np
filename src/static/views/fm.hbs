@@ -25,8 +25,9 @@
 async function _fmConfig () {
 let lj = new _loadjs([["_fm", "/js/fm.js"]]);
 await lj.init();
-var _fm = new _fileManager();
-_fm.open("{{pwd}}")
+var _fm = new _fileManager("{{ls.pwd}}");
+_fm.configLinks()
+_fm.setPwd("{{ls.pwd}}")
 }
 
 _fmConfig ()
