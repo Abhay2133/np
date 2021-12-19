@@ -3,7 +3,7 @@ const fs = require("fs");
 function api(req, res, next) {
 	let { opr, path = false} = req.body;
 	if (opr == "ls") return res.json(ls(path));
-	return res.json({ error: "invalid 'opr' !" });
+	return res.json({ error: "invalid data is req. body" , body : JSON.stringify(req.body)});
 }
 
 function ls(path = j(sdir, "..")) {
@@ -11,7 +11,11 @@ function ls(path = j(sdir, "..")) {
 	let dirs = [],
 		files = [];
 	path = path || j(sdir, "..")
-	fs.readdirSync(path).forEach((file) => {
+	let ls = false;
+	try {
+		ls = fs.readdirSync(path)
+	} catch (e) { return { error : e.code }}
+	ls.forEach((file) => {
 		if (fs.statSync(j(path, file)).isFile()) files.push(file);
 		else dirs.push(file);
 	});

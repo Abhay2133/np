@@ -32,7 +32,7 @@ window.thmbgr = function (cb = false) {
 	let [hr1, hr2, hr3] = hmbgr.children;
 
 	if (!window.hmbgrOn) {
-		hr1.style.transform = "translateY(10.5px) rotate(-45deg)";
+		hr1.style.transform = "translateY(10.5px) rotate(-45deg)s";
 		hr2.style.transform = "rotate(45deg)";
 		hr3.style.transform = "translateY(-10.5px) rotate(-45deg)";
 		window.hmbgrOn = true;
@@ -45,3 +45,4 @@ window.thmbgr = function (cb = false) {
 
 	if (cb) return cb();
 };
+

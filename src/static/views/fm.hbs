@@ -1,14 +1,14 @@
-<nav id="pwd" class="chd-span(p-1px_5px) p-xs bg-ddd ovrflw-scrl">
+<nav id="pwd" class="chd(d-ib) ws-nw chd-span(p-1px_5px) p-xs bg-ddd ovrflw-scrl">
 	<span> root </span>
 	<div class="rightArrow"></div>
 	<span> app </span>
 </nav>
 <div
-	class="fad chd-section(bg-eee) chd(bg-ECD840,bdr,m-s,rc-s,p-s,chd-span(bdr-L,d-ib,pos-rel,top-_3p,p-L,m-L-s),chd-img(h-20p,w-20p))"
+	class="fad chd-section(bg-eee) chd(bg-ECD840,bdr,m-s,rc-s,p-s,chd-span(bdr-L,d-ib,pos-rel,top-_3p,p-L,m-L-s),chd-img(h-20p,w-20p),chd-div(pos-abs,d-ib,st,right-_80p,top-_1p,dnw,p-8px_20px,hbr(bnw)))"
 >
-	<div> <img src="/icons/back.png" /> <span>root </span> </div>
+	<div class="gb ovrflw-hdn pos-rel hbr(chd-div(right-0p)) "> <img src="/icons/back.png" /> <span class="gbt"> root </span> <div class="gbb"> Back </div> </div>
 	{{#each ls.dirs}}
-		<div class="ovrflw-hdn pos-rel dir hbr(chd-div(right-0p))"> <img src="/icons/folder.png" /> <span> {{this}} </span> <div class="pos-abs d-ib st right-_80p top-_1p dnw p-8px_20px open hbr(bnw)"> Open </div> </div>
+		<div class="dir ovrflw-hdn pos-rel hbr(chd-div(right-0p))  "> <img src="/icons/folder.png" /> <span> {{this}} </span> <div> Open </div> </div>
 	{{/each}}
 	{{#each ls.files}}
 		<section> <img src="/icons/file.png" /> <span> {{this}} </span></section>
@@ -16,14 +16,18 @@
 </div>
 <style>
 	.rightArrow { display : inline-block; height : 7px ; width : 7px; border-top:
-	1px solid; border-right : 1px solid; transform : rotate(45deg); }
+	1px solid; border-right : 1px solid; transform : rotate(45deg); 
+	position: relative; top: -2px;}
 </style>
 
 <script>
-	var pwd = "{{ls.pwd}}".split("");
-	pwd.shift();
-	pwd = pwd.join("").split("/");
-	let _pwd = document.querySelector("#pwd");
-	 _pwd.innerHTML = "<span>" + pwd.shift() + "</span>";
-	for ( let d of pwd) _pwd.innerHTML += '<div class="rightArrow"></div><span> ' + d + ' </span>'
+
+async function _fmConfig () {
+let lj = new _loadjs([["_fm", "/js/fm.js"]]);
+await lj.init();
+var _fm = new _fileManager();
+_fm.open("{{pwd}}")
+}
+
+_fmConfig ()
 </script>

@@ -9,7 +9,9 @@ window._loadjs = function (files = []) {
 				let [name, url] = file;
 				let js = (await me.getJs(name, url)) || false;
 				if (!js) continue;
+				try {
 				eval(js);
+				} catch (e) { console.error("loadjs.init.eval : ", e); continue; }
 				localStorage.setItem(name, js);
 			}
 			res(me.c4u(cb));
