@@ -13,7 +13,7 @@ window._fileManager = function (pwd = false) {
 		pwd = pwd.join("").split("/");
 		let _pwd = document.querySelector("#pwd");
 		let fdir = pwd.shift();
-		fdir = fdir.length > 0 ? fdir || "/"
+		fdir = fdir.length > 0 ? fdir : "/"
 		_pwd.innerHTML = "<span>" + fdir + "</span>";
 		for (let d of pwd)
 			_pwd.innerHTML +=
