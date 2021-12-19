@@ -1,22 +1,17 @@
-<div class="t-c">
-<div class="crsr-pntr button m p-10px_20px bnw rc-s d-ib" onclick = "pressed(this, true); setTimeout( () => window.location.href = '/fs', 400);">
-	FS Module
+<div class="t-c projects chd-a(crsr-pntr,button,m,p-10px_20px,bnw,rc-s,d-ib,bs-0px_4px_1px_hex555)">
+<a href = '/fs'>FS Module</a>
+<a href = '/imgD'>Image Downloader</a>
+<a href = '/fm' > File Manager</a>
+<a href="/gallery">Photo Gallery</a>
+<a href = '/uploads'>Uploads</a>
 </div>
 
-<div class="crsr-pntr button m p-10px_20px bnw rc-s d-ib" onclick = "pressed(this, true); setTimeout( () => window.location.href = '/imgD', 400);">
-	Image Downloader
-</div>
-
-<!--
-<div class="crsr-pntr button m p-10px_20px bnw rc-s d-ib" onclick = "pressed(this, true); setTimeout( () => window.location.href = '/fm', 400);">
-	File Manager
-</div>
--->
-<div class="crsr-pntr button m p-10px_20px bnw rc-s d-ib" onclick = "pressed(this, true); setTimeout( () => window.location.href = '/gallery', 400);">
-	Photo Gallery
-</div>
-
-<div class="crsr-pntr button m p-10px_20px bnw rc-s d-ib" onclick = "pressed(this, true); setTimeout( () => window.location.href = '/uploads', 400);">
-	Uploads
-</div>
-</div>
+<script>
+	document.querySelectorAll("a").forEach ( a => {
+		a.addEventListener ( "click" , function (event) {
+			event.preventDefault();
+			pressed(this, true);
+			setTimeout( () => { location.href = this.href}, 300);
+		})
+	})
+</script>

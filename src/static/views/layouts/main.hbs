@@ -1,65 +1,67 @@
 <html>
-<meta name="viewport" content="width=device-width, scale=1">
+  <meta name="viewport" content="width=device-width, scale=1" />
 
-<head>
-	{{#unless title}}
-    <title> Node Express Practice </title>
+  <head>
+    {{#unless title}}
+      <title> Node Express Practice </title>
     {{/unless}}
-	{{#if title}}
-    <title> {{title}} </title>
+    {{#if title}}
+      <title> {{title}} </title>
     {{/if}}
     <link rel="stylesheet" href="styles.css" />
     {{#if (isDev)}}
-    <script src="js/eruda.js" onload="eruda.init();"></script>
+      <script src="js/eruda.js" onload="eruda.init();"></script>
     {{/if}}
 
     {{#if (isDev)}}
-    <script src="js/loadjs.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/hlpr.js"></script>
-    <script src="js/test.js"></script>
-    <script>
-		let acs = new _loadjs([["acss", "http://localhost:9000/acss.min.js"]])
-		acs.init()
-	</script>
+      <script src="js/loadjs.js"></script>
+      <script src="js/main.js"></script>
+      <script src="js/hlpr.js"></script>
+      <script src="js/test.js"></script>
+      <script>
+        let acs = new _loadjs([["acss", "http://localhost:9000/acss.min.js"]])
+        acs.init()
+      </script>
     {{/if}}
-    
+
     {{#unless (isDev)}}
-    <script>{{{loadjs}}}</script>
-    <script>
-    	let loadjs = new _loadjs();
- 		loadjs.init([
-			["main.js", "/js/main.js"],
- 			["hlpr.js", "/js/hlpr.js"],
-		["acss.js", "http://cdn2132.herokuapp.com/acss.min.js" ],
-		["_uploads", "/js/upload.js"]
-]);
-  </script>
+      <script>{{{loadjs}}}</script>
+      <script>
+        let loadjs = new _loadjs(); loadjs.init([ ["main.js", "/js/main.js"],
+        ["hlpr.js", "/js/hlpr.js"], ["acss.js",
+        "http://cdn2132.herokuapp.com/acss.min.js" ], ["_uploads",
+        "/js/upload.js"] ]);
+      </script>
     {{/unless}}
-</head>
-<style>
-	body { display : none; font-family : calibri }
-</style>
-<body class="d-b m-n pc(pos-rel,w-500p,left-50pg,m-L-_250p) " id="body">
+  </head>
+  <style>
+    body { display : none; font-family : calibri }
+  </style>
+  <body class="d-b m-n pc(pos-rel,w-500p,left-50pg,m-L-_250p)" id="body">
 
-<div class="t-c bg-eee p-s h-a pos-rel pos-fxd w-100pg top-0p left-0p">
-<div id="hmbgr" class="" onclick="thmbgr(tsp)" > <hr><hr><hr> </div>
-<h1 class="d-ib m-7p t-c fw-300 f-xxl txtdc-no m-n" >
-	 {{mainHeading}} {{#unless mainHeading}} Node Express Practice {{/unless}}
-</h1>
-</div>
-<div id="sidePanel" class="top-53p left-0p zi-999999">
-	<a href="{{hn}}" class="item" onclick="setTimeout(()=> location.href = this.href, 300); return false"> HOME </a>
-	<div class="item"> Contact me </div>
-	<div class="item"> About me </div>
-</div>
+    <div class="t-c bg-eee p-s h-a pos-rel pos-fxd w-100pg top-0p left-0p">
+      <div id="hmbgr" class="" onclick="thmbgr(tsp)"> <hr /><hr /><hr /> </div>
+      <h1 class="d-ib m-7p t-c fw-300 f-xxl txtdc-no m-n">
+        {{mainHeading}}
+        {{#unless mainHeading}} Node Express Practice {{/unless}}
+      </h1>
+    </div>
+    <div id="sidePanel" class="top-53p left-0p zi-999999">
+      <a
+        href="{{hn}}"
+        class="item"
+        onclick="setTimeout(()=> location.href = this.href, 300); return false"
+      > HOME </a>
+      <div class="item"> Contact me </div>
+      <div class="item"> About me </div>
+    </div>
 
-<div id="viewport" class="m-T-60p">
-{{{body}}}
-</div>
-</body>
+    <div id="viewport" class="m-T-54p">
+      {{{body}}}
+    </div>
+  </body>
 
-<style>
-	{{{style}}}
-</style>
+  <style>
+    {{{style}}}
+  </style>
 </html>
