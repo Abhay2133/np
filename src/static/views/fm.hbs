@@ -6,13 +6,11 @@
 </nav>
 <div class="fad chd-section(bg-eee) chd(bg-ECD840,bdr,m-s,rc-s,p-s,chd-span(bdr-L,d-ib,pos-rel,top-_3p,p-L,m-L-s),chd-img(h-20p,w-20p))">
 	<div> <img src="/icons/back.png" > <span>root </span> </div>
-	{{#each ls}}
-	{{#unless this.isFile}}
-	<div> <img src="/icons/folder.png" > <span> {{this.name}} </span> </div>
-	{{/unless}}
-	{{#if this.isFile}}
-	<section> <img src="/icons/file.png" > <span> {{this.name}} </span> </section>
-	{{/if}}
+	{{#each ls.dirs}}
+	<div> <img src="/icons/folder.png" > <span> {{this}} </span> </div>
+	{{/each}}
+	{{#each ls.files}}
+	<section> <img src="/icons/file.png" > <span> {{this}} </span> </section>
 	{{/each}}
 </div>
 <style>
@@ -24,4 +22,9 @@
 		transform : rotate(45deg);
 	}
 </style>
+
+<script>
+	const ls = {{ls.files}}
+	console.log(ls)
+</script>
 
