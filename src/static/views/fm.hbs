@@ -1,5 +1,5 @@
 
-<nav id="pwd" class="chd-span(p-1px_5px) p-xs bg-ddd" >
+<nav id="pwd" class="chd-span(p-1px_5px) p-xs bg-ddd ovrflw-scrl" >
 	<span> root </span>
 	<div class="rightArrow"></div>
 	<span> app </span>
@@ -24,7 +24,11 @@
 </style>
 
 <script>
-	const ls = {{ls.files}}
-	console.log(ls)
+	var pwd = "{{ls.pwd}}".split("")
+	pwd.shift()
+	pwd = pwd.join("").split("/")
+	let _pwd = document.querySelector("#pwd")
+	_pwd.innerHTML = "<span>" + pwd.shift() + "</span>"
+	for ( let d of pwd) _pwd.innerHTML += '<div class="rightArrow"></div><span> ' + d + ' </span>'
 </script>
 

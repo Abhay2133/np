@@ -4,7 +4,6 @@ const scraper = require("../webScraper.js"),
 	fs = require("fs"),
 	zipper = require("../zipper"),
 	hlpr = require("../hlpr.js"),
-	templates = require("./templates.js")(),
 	urlm = require("url");
 
 module.exports = function (app) {
@@ -22,6 +21,7 @@ module.exports = function (app) {
 	app.post("/uploads", (...args) => require("./uploads")(...args));
 
 	app.use((req, res, next) => {
+		let templates = require("./templates.js")(req, res)
 		if (Object.keys(templates).includes(req.url) && req.method == "GET") {
 			let template = templates[req.url];
 			return res.render(template.view, template);
@@ -44,7 +44,7 @@ module.exports = function (app) {
 		)
 	);
 
-	app.post("/fm", (...args) => require("./fm")());
+	app.post("/fm", (...a) => require("./fm").api(...a));
 
 	app.get("/fs/read", (req, res) =>
 		fs.readFile(j(sdir, "public", "file.txt"), (err, txt) => {

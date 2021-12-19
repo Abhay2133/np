@@ -14,7 +14,7 @@ module.exports = () => {
 			view: "fm",
 			title: "File Manager",
 			mainHeading: "File Manager",
-			ls: ls()
+			ls: require("./fm").ls()
 		},
 		"/uploads": {
 			view: "uploads",
@@ -25,11 +25,3 @@ module.exports = () => {
 	};
 };
 
-function ls () {
-				let dirs = [], files = [];
-				fs.readdirSync(j(sdir, "..")).forEach(file => {
-					if ( fs.statSync(j(sdir, "..", file)).isFile() ) files.push(file)
-					else dirs.push(file);
-				})
-				return { dirs : dirs, files : files }
-}
