@@ -14,7 +14,7 @@
     {{/if}}
 
     {{#if (isDev)}}
-    <script src="js/loadjs2.js"></script>
+    <script src="js/loadjs.js"></script>
     <script src="js/main.js"></script>
     <script src="js/hlpr.js"></script>
     <script src="js/test.js"></script>
@@ -27,10 +27,13 @@
     {{#unless (isDev)}}
     <script>{{{loadjs}}}</script>
     <script>
- 		loadjs.addFile("main.js", "/js/main.js");
- 		loadjs.addFile("hlpr.js", "/js/hlpr.js");
- 		loadjs.addFile("acss.js", "http://cdn2132.herokuapp.com/acss.min.js" )
- 		loadjs.init();
+    	let loadjs = new _loadjs();
+ 		loadjs.init([
+			["main.js", "/js/main.js"],
+ 			["hlpr.js", "/js/hlpr.js"],
+		["acss.js", "http://cdn2132.herokuapp.com/acss.min.js" ],
+		["_uploads", "/js/upload.js"]
+]);
   </script>
     {{/unless}}
 </head>

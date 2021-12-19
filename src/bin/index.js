@@ -1,12 +1,13 @@
 module.exports = async () => {
-	const fs = require("fs");
+  const fs = require("fs");
   console.clear();
   global.log = (...args) => console.log(...args);
   global.j = require("path").join;
   global.basename = require("path").basename;
-  global.sdir = j(__dirname, "..", "static")
-  global._port = process.env.PORT || 3000
-  if (!fs.existsSync(j(sdir, "files", "uploads"))) fs.mkdirSync(j(sdir, "files", "uploads"), { recursive: true });
+  global.sdir = j(__dirname, "..", "static");
+  global._port = process.env.PORT || 3000;
+  if (!fs.existsSync(j(sdir, "files", "uploads")))
+    fs.mkdirSync(j(sdir, "files", "uploads"), { recursive: true });
 
   const exp = require("express"),
     app = exp(),
@@ -16,7 +17,7 @@ module.exports = async () => {
     hlpr = require("./hlpr"),
     exec = require("child_process").exec,
     engine = await require("./templateEngine")(),
-    cors = require("cors")
+    cors = require("cors");
 
   app.locals.env = process.env.NODE_ENV == "production" ? "pro" : "dev";
   app.locals.port = _port;

@@ -10,11 +10,11 @@ const scraper = require("../webScraper.js"),
 module.exports = function (app) {
   app.use((req, res, next) => {
     let mc = {
-    	GET : "green",
-    	POST : "yellow",
-    	PUT : "blue",
-    	DELETE : "red"
-   	}
+      GET: "green",
+      POST: "yellow",
+      PUT: "blue",
+      DELETE: "red",
+    };
     log(colors[mc[req.method]](req.method), req.url);
     next();
   });
@@ -23,7 +23,7 @@ module.exports = function (app) {
 
   app.use((req, res, next) => {
     if (Object.keys(templates).includes(req.url) && req.method == "GET") {
-    	let template = templates[req.url] ;
+      let template = templates[req.url];
       return res.render(template.view, template);
     }
     next();
@@ -76,7 +76,8 @@ module.exports = function (app) {
   app.get("/gallery", (...args) => {
     require("./gallery.js")(...args);
   });
-  
-  app.get("/getUploads", (req, res) => res.json(fs.readdirSync(j(sdir, "files", "uploads"))))
-};
 
+  app.get("/getUploads", (req, res) =>
+    res.json(fs.readdirSync(j(sdir, "files", "uploads")))
+  );
+};

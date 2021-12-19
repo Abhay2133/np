@@ -1,6 +1,6 @@
 let qsa = (q) => document.querySelectorAll(q),
-	qs = (q) => document.querySelector(q),
-	ntag = ( tag ) => document.createElement(tag)
+  qs = (q) => document.querySelector(q),
+  ntag = (tag) => document.createElement(tag);
 
 window._upload = () => {
   let url = "/uploads",
@@ -12,20 +12,25 @@ window._upload = () => {
     body: formData,
   })
     .then((res) => res.json())
-    .then((json) => log(json,_getUploads( true)))
-	
+    .then((json) => log(json, _getUploads(true)));
+
   return false;
 };
 
-window._getUploads = (render = false) => new Promise ( async res => {
-	let files = await (await fetch("/getuploads")).json();
-	if ( render ) {
-		qs(".files").innerHTML = `<h3 class="m-s p-s rc-s bg-FF6600 t-c">Uploaded Files ...</h3>`
-		files.forEach ( file => {
-			qs(".files").innerHTML += `<div> <img src="/icons/file.png" class="icon" >
+window._getUploads = (render = false) =>
+  new Promise(async (res) => {
+    let files = await (await fetch("/getuploads")).json();
+    if (render) {
+      qs(
+        ".files"
+      ).innerHTML = `<h3 class="m-s p-s rc-s bg-FF6600 t-c">Uploaded Files ...</h3>`;
+      files.forEach((file) => {
+        qs(
+          ".files"
+        ).innerHTML += `<div> <img src="/icons/file.png" class="icon" >
 			<span>${file} </span>
-		</div>`
-		})
-	}
-	return res( files )
-})
+		</div>`;
+      });
+    }
+    return res(files);
+  });
