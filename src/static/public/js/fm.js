@@ -56,7 +56,7 @@ window._fileManager = function (pwd = false) {
 	
 	this.newFile = name => {
 		let section = document.createElement("section")
-		section.innerHTML = "<img src='/icons/folder.png' /> <span> "+ name +"</span>"
+		section.innerHTML = "<img src='/icons/file.png' /> <span> "+ name +"</span>"
 		return section;
 	}
 	
