@@ -11,6 +11,7 @@ module.exports = async () => {
 
 	const exp = require("express"),
 		app = exp(),
+		//router = exp.Router(),
 		rh = require("./routes/routeHandler.js"),
 		bodyParser = require("body-parser"),
 		compression = require("compression"),

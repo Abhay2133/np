@@ -18,17 +18,19 @@ module.exports = function (app) {
 		next();
 	});
 
-	app.post("/uploads", (...args) => require("./uploads")(...args));
-
 	app.use((req, res, next) => {
-		let templates = require("./templates.js")(req, res);
-		if (Object.keys(templates).includes(req.url) && req.method == "GET") {
-			let template = templates[req.url];
-			return res.render(template.view, template);
+		let ts = require("./templates.js")(req, res);
+		for( let url in ts ) {
+			app.get( url, (_req, _res) => {
+				let t = ts[url](_req);
+				_res.render( t.view, t )
+			 })
 		}
 		next();
 	});
 
+	app.post("/uploads", (...args) => require("./uploads")(...args));
+	
 	app.post("/imgD", (...args) => {
 		require("./imgD.js")(...args);
 	});
@@ -80,9 +82,4 @@ module.exports = function (app) {
 	app.get("/getUploads", (req, res) =>
 		res.json(fs.readdirSync(j(sdir, "files", "uploads")))
 	);
-	
-	app.get("/ab*", (req, res) => {
-		log(req.params);
-		res.send(req.params["0"])
-	})
-};
+}

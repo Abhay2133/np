@@ -7,6 +7,7 @@ function api(req, res, next) {
 }
 
 function ls(path = j(sdir, "..")) {
+	//log(path)
 	let dirs = [],
 		files = [];
 	path = path || j(sdir, "..")

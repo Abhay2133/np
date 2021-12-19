@@ -16,7 +16,7 @@ window._loadjs = function (files = []) {
 		});
 	this.getJs = (name, url) =>
 		new Promise(async (res) => {
-			console.log("getJs :", name);
+			//console.log("getJs :", name);
 			let lsc = localStorage.getItem(name) || false;
 			if (lsc) return res(lsc);
 			console.log("getJs : fetching", url);
@@ -42,7 +42,7 @@ window._loadjs = function (files = []) {
 				me.ufs.lengh > 0
 					? "loadjs.c4u : updated files are" + JSON.stringify(me.ufs)
 					: "All Files are Up-to-date !";
-			console.log(m);
+			console.log("loadjs.c4u :", m);
 			res(cb());
 		});
 };

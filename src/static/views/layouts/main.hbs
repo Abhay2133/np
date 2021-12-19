@@ -8,34 +8,23 @@
 		{{#if title}}
 			<title> {{title}} </title>
 		{{/if}}
-		<link rel="stylesheet" href="styles.css" />
+		<link rel="stylesheet" href="/styles.css" />
 		{{#if (isDev)}}
 			<script
 				src="http://localhost:9000/eruda.min.js"
 				onload="eruda.init();"
 			></script>
 		{{/if}}
-
-		{{#if (isDev)}}
-			<script src="js/loadjs.js"></script>
-			<script src="js/main.js"></script>
-			<script src="js/hlpr.js"></script>
-			<script src="js/test.js"></script>
-			<script>
-				let acs = new _loadjs([["acss", "http://localhost:9000/acss.min.js"]])
-				acs.init()
-			</script>
-		{{/if}}
-
-		{{#unless (isDev)}}
 			<script>{{{loadjs}}}</script>
 			<script>
-				let loadjs = new _loadjs(); loadjs.init([ ["main.js", "/js/main.js"],
-				["hlpr.js", "/js/hlpr.js"], ["acss.js",
-				"http://cdn2132.herokuapp.com/acss.min.js" ], ["_uploads",
-				"/js/upload.js"] ]);
+				let loadjs = new _loadjs([
+					["acss.js", "{{cdn}}/acss.min.js" ],
+					["main.js", "/js/main.js"],
+					["hlpr.js", "/js/hlpr.js"],
+					["_uploads", "/js/upload.js"] 
+				]);
+				loadjs.init()
 			</script>
-		{{/unless}}
 	</head>
 	<style>
 		body { display : none; font-family : calibri }

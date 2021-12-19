@@ -14,6 +14,13 @@ module.exports = async () => {
 						: "http://localhost:" + _port;
 				return host;
 			},
+			cdn () {
+				let cdn =
+					process.env.NODE_ENV === "production"
+						? "https://cdn2132.herokuapp.com"
+						: "http://localhost:9000";
+				return cdn;
+			},
 			isDev() {
 				return !(process.env.NODE_ENV === "production");
 			},
