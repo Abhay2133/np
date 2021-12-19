@@ -3,6 +3,7 @@ window._qsa = ( q ) => document.querySelectorAll(q)
 window._qs = ( q ) => document.querySelector(q);
 
 window._fileManager = function (root) {
+	this.bn = location.href.split("/")[location.href.split("/").length -1]
 	const me = this;
 	this.ce = (name ,ih) => {let tag = document.createElement(name) ; tag.innerHTML = ih ; return tag}
 	this.setPwd = (pwd) => {
@@ -73,8 +74,7 @@ window._fileManager = function (root) {
 	this.configLinks = () => {
 		let dirs = _qsa(".dir")
 		dirs.forEach( dir => dir.children[2].addEventListener("click", () => { me.open(me.pwd + "/" + dir.children[1].textContent.trim())}))
-		let bn = location.href.split("/")[location.href.split("/").length -1]
-		history.pushState("", "Title", bn + me.pwd)
+		history.replaceState("", "Title", "/fm" + me.pwd)
 	}
 };
 
