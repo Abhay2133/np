@@ -28,6 +28,12 @@ lj.files = ["/js/fm.js"]
 await lj.init();
 var _fm = new _fileManager("{{ls.pwd}}");
 _fm.configLinks("{{ls.pwd}}")
+
+window.onpopstate = function ( state ) {
+	_fm.history.pop()
+	let upDir = _fm.history.pop()
+	_fm.open(upDir ? upDir : "/", log(upDir))
+}
 }
 
 _fmConfig ()
