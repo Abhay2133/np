@@ -27,7 +27,7 @@ let lj = new _loadjs()//([["_fm", "/js/fm.js"]]);
 lj.files = ["/js/fm.js"]
 await lj.init();
 var _fm = new _fileManager("{{ls.pwd}}");
-_fm.open("{{ls.pwd}}")
+_fm.configLinks("{{ls.pwd}}")
 }
 
 _fmConfig ()

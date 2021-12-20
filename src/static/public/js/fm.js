@@ -7,6 +7,7 @@ window._fileManager = function (pwd = false) {
 	const me = this;
 	this.pwd = pwd || ""
 	this.ce = (name ,ih) => {let tag = document.createElement(name) ; tag.innerHTML = ih ; return tag}
+	
 	this.setPwd = (pwd) => {
 		var pwd = pwd.split("");
 		pwd.shift();
@@ -29,8 +30,8 @@ window._fileManager = function (pwd = false) {
 			ls = JSON.parse(ls)
 		} catch (e) { return log (ls)}
 		if( ls.error ) return log(ls.error);
-		this.pwd = ls.pwd
-		if ( ls ) me.render(ls, me.setPwd(ls.pwd))
+		me.pwd = ls.pwd
+		if ( ls ) me.render(ls)
 	};
 	
 	this.wait = n => new Promise( res => setTimeout( res, n) );
@@ -46,7 +47,7 @@ window._fileManager = function (pwd = false) {
 		barsP.appendChild(me.newgb(upDir))
 		ls.dirs.forEach( dir => barsP.appendChild(me.newDir(dir)) )
 		ls.files.forEach( file => barsP.appendChild(me.newFile(file)) )
-		me.configLinks ();
+		me.configLinks (me.pwd);
 	}
 	
 	this.newDir = name => {
@@ -77,9 +78,10 @@ window._fileManager = function (pwd = false) {
 		return div;
 	}
 	
-	this.configLinks = () => {
+	this.configLinks = (pwd) => {
 		let dirs = _qsa(".dir")
 		dirs.forEach( dir => dir.children[2].addEventListener("click", () => { me.open(me.pwd + "/" + dir.children[1].textContent.trim())}))
+		 me.setPwd(pwd)
 		history.replaceState("", "Title", "/fm" + me.pwd)
 	}
 };
