@@ -17,12 +17,22 @@
 		{{/if}}
 			<script>{{{loadjs}}}</script>
 			<script>
+				/*
 				let loadjs = new _loadjs([
 					["acss.js", "{{cdn}}/acss.min.js" ],
 					["main.js", "/js/main.js"],
 					["hlpr.js", "/js/hlpr.js"],
 					["_uploads", "/js/upload.js"]
 				]);
+				loadjs.init()
+				*/
+				let loadjs = new _loadjs();
+				loadjs.files = [
+					"{{cdn}}/acss.min.js",
+					"/js/main.js",
+					"/js/hlpr.js",
+					"/js/upload.js"
+				]
 				loadjs.init()
 			</script>
 	</head>

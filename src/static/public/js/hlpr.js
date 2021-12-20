@@ -15,7 +15,6 @@ window.downloadFile = function (file) {
 };
 
 window.tsp = function () {
-	//log("toggle Side Panel : spOn =", window.spOn);
 	const sp = document.querySelector("#sidePanel");
 	if (!window.spOn) {
 		sp.style.width = "200px";
