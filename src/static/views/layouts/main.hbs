@@ -8,33 +8,10 @@
 		{{#if title}}
 			<title> {{title}} </title>
 		{{/if}}
-		<link rel="stylesheet" href="/styles.css" />
 		{{#if (isDev)}}
-			<script
-				src="/js/eruda.min.js"
-				onload="eruda.init();"
-			></script>
+			<script src="/js/eruda.min.js" onload="eruda.init();"></script>
 		{{/if}}
-			<script>{{{loadjs}}}</script>
-			<script>
-				/*
-				let loadjs = new _loadjs([
-					["acss.js", "{{cdn}}/acss.min.js" ],
-					["main.js", "/js/main.js"],
-					["hlpr.js", "/js/hlpr.js"],
-					["_uploads", "/js/upload.js"]
-				]);
-				loadjs.init()
-				*/
-				let loadjs = new _loadjs();
-				loadjs.files = [
-					"{{cdn}}/acss.min.js",
-					"/js/main.js",
-					"/js/hlpr.js",
-					"/js/upload.js"
-				]
-				loadjs.init()
-			</script>
+			<script>{{{loadFiles}}}</script>
 	</head>
 	<style>
 		body { display : none; font-family : calibri }
@@ -62,8 +39,15 @@
 			{{{body}}}
 		</div>
 	</body>
-
-	<style>
-		{{{style}}}
-	</style>
+<script>
+				let loadF= new _loadFiles();
+				loadF.files = [
+					"{{cdn}}/acss.min.js",
+					"/js/main.js",
+					"/js/hlpr.js",
+					"/js/upload.js",
+					"/css/ui.css"
+				]
+				loadF.init()
+			</script>
 </html>

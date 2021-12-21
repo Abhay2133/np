@@ -69,22 +69,18 @@ window._fileManager = function (pwd = false) {
 		let div = document.createElement("div")
 		div.className = "gb ovrflw-hdn pos-rel hbr(chd-div(right-0p))"
 		div.style.display = name.length < 1 || name == "emulated" ? "none" : "block"
-		div.innerHTML = "<img src='/icons/back.png' /> <span> "+ name +"</span>"
-		let bb = me.ce("div", "Back")
-		bb.addEventListener("click", () => {
-			let pwd = me.pwd.split("/"); pwd.pop()
-			me.open(pwd.join("/"))
-		})
-		div.appendChild(bb)
+		div.innerHTML = "<img src='/icons/back.png' /> <span class=\"upDir\"> "+ name +" </span><div class=\"bb\"> Back </div> "
 		return div;
 	}
 	
 	this.configLinks = (pwd) => {
 		let dirs = _qsa(".dir")
-		dirs.forEach( dir => dir.children[2].addEventListener("click", () => {
-			me.open(me.pwd + "/" + dir.children[1].textContent.trim())
-			//history.replaceState("", "Title", "/fm" + me.pwd)
-		}))
+		dirs.forEach( dir => dir.children[2].addEventListener("click", () => {me.open(me.pwd + "/" + dir.children[1].textContent.trim())}))
+		_qs(".upDir").innerHTML = me.pwd.split("/")[me.pwd.split("/").length - 2]
+		_qs(".bb").addEventListener("click", () => {
+			let pwd = me.pwd.split("/"); pwd.pop();
+			me.open(pwd.join("/"))
+		})
 		me.setPwd(pwd)
 		history.pushState("", "Title", "/fm" + me.pwd)
 		me.history.push(me.pwd);

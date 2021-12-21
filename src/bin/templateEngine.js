@@ -2,7 +2,7 @@ const hbs = require("express-handlebars"),
 	fs = require("fs");
 
 module.exports = async () => {
-	let loadjs = fs.readFileSync(j(sdir, "public", "js", "loadjs.js")) || "";
+	let loadFiles = fs.readFileSync(j(sdir, "public", "js", "loadFiles.js")) || "";
 	let css = fs.readFileSync(j(sdir, "public", "css", "ui.css")) || "";
 	let engine = hbs.create({
 		defaultLayout: "main",
@@ -24,8 +24,8 @@ module.exports = async () => {
 			isDev() {
 				return !(process.env.NODE_ENV === "production");
 			},
-			loadjs() {
-				return loadjs;
+			loadFiles() {
+				return loadFiles;
 			},
 			style() {
 				return css;

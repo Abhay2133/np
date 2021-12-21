@@ -11,6 +11,7 @@ src/static/public/gallery
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 */**/**/**/**/**/**/**/**/**/*.mp4
+nm.tar.bz2
 # Runtime data
 pids
 *.pid
