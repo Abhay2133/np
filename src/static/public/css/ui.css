@@ -1,3 +1,7 @@
+::-webkit-scrollbar {
+    display: none;
+}
+
 #hmbgr {
 	height: 40px;
 	width: 40px;
