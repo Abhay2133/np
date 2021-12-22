@@ -68,7 +68,7 @@ window._fileManager = function (pwd = false) {
 		//log(name)
 		let div = document.createElement("div")
 		div.className = "gb ovrflw-hdn pos-rel hbr(chd-div(right-0p))"
-		div.style.display = name.length < 1 || name == "emulated" ? "none" : "block"
+		div.style.display = name.length < 1 || name == "emulated" ? "none" : "flex"
 		div.innerHTML = "<img src='/icons/back.png' /> <span class=\"upDir\"> "+ name +" </span><div class=\"bb\"> Back </div> "
 		return div;
 	}
