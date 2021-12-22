@@ -1,18 +1,8 @@
 <div
 	class="t-c projects chd-a(crsr-pntr,button,m,p-10px_20px,bnw,rc-s,d-ib,bs-0px_4px_1px_hex555)"
 >
-	<a href="/fs">FS Module</a>
-	<a href="/imgD">Image Downloader</a>
-	<a href="/fm"> File Manager</a>
-	<a href="/uploads">Uploads</a>
+	<a href="/fs" onclick="pressed(this, true); setTimeout( ()=> { location.href = this.href}, 200); return false;">FS Module</a>
+	<a href="/imgD" onclick="pressed(this, true); setTimeout( ()=> { location.href = this.href}, 200); return false;" >Image Downloader</a>
+	<a href="/fm" onclick="pressed(this, true); setTimeout( ()=> { location.href = this.href}, 200); return false;"> File Manager</a>
+	<a href="/uploads" onclick="pressed(this, true); setTimeout( ()=> { location.href = this.href}, 200); return false;">Uploads</a>
 </div>
-
-<script>
-	document.querySelectorAll("a").forEach ( a => {
-		a.addEventListener ( "click" ,function (event) {
-			event.preventDefault();
-			pressed(this, true);
-			setTimeout( ()=> { location.href = this.href}, 300);
-		})
-	})
-</script>

@@ -30,14 +30,10 @@ module.exports = async () => {
 
 	if (app.locals.env == "dev")
 		exec(
-			"termux-open-url http://" +
-				require("os").hostname() +
-				":" +
-				_port +
-				" && cdn",
+			"termux-open-url http://localhost" + ":" + _port + ";google-chrome http://localhost" + ":" + _port +" ; cdn ; cd .. ; cd cdn ; npm start; pwd",
 			(err, stdout, stderr) => {
 				log("Starting chrome");
-				log(stdout, stderr);
+				log(err, stdout, stderr);
 			}
 		);
 
