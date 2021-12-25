@@ -45,3 +45,15 @@ window.thmbgr = function (cb = false) {
 	if (cb) return cb();
 };
 
+window._getH = (tag) => window.getComputedStyle(tag).getPropertyValue("height")
+
+window._toggleHeight = function ( id, height , toggle){
+	const me = this; 
+	this.id = id;
+	this.tag = i => document.querySelector( i );
+	this.tag(id).style.transition = "0.2s"
+	this.h = height || _getH(this.tag(id))
+	this.t = () => {me.tag(me.id).style.height = me.tag(me.id).style.height == "0px" ? me.h : "0px";}
+	if(toggle) this.t ()
+}
+
