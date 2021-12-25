@@ -81,8 +81,8 @@
 	}
 	
 	nav > div > div:hover {
-		background : #333;
-		color : #fff;
+		/*background : var(--bgcolor);*/
+		color : var(--bgcolor);
 		border-radius: 3px;
 	}
 	
