@@ -1,4 +1,5 @@
-//require("./bin/index.js")();
+require("./bin/index.js")();
+/*
 var search = require('youtube-search');
 
 var opts = {
@@ -11,3 +12,4 @@ search('AjjuBhai', opts, function(err, results) {
 
   console.dir(results);
 });
+*/
