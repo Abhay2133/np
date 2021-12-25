@@ -29,6 +29,7 @@
     "formidable": "^2.0.1",
     "node-fetch": "^2.6.6",
     "node-html-parser": "^5.1.0",
-    "nodejs-file-downloader": "^4.7.4"
+    "nodejs-file-downloader": "^4.7.4",
+    "youtube-search": "^1.1.6"
   }
 }
