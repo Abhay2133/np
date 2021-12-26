@@ -5,8 +5,11 @@ function _loadFiles () {
 			let name = file.split("/")[file.split("/").length -1], ls = localStorage
 			data = await me.getFile(name,file, c4u)
 			if ( c4u && data === ls.getItem(name)) continue;
-			if( name.endsWith(".js")) try { eval(data); } catch (e) { console.log("url :", file, "\nData :", data, "\nError :", e); me.logs.push("F "+name); continue}
-			else if ( name.endsWith(".css")) document.body.innerHTML += "<style>\n" + data + "\n</style>"
+			if( name.endsWith(".js")) try { eval(data)} catch (e) { console.log("url :", file, "\nData :", data, "\nError :", e); me.logs.push("F "+name); continue}
+			else if ( name.endsWith(".css")) {
+				let style = document.getElementById(name.split(".")[0]) || (() => { let style = document.createElement("style"); style.id = name.split(".")[0]; document.body.appendChild(style); return style;})()
+				style.innerHTML = "\n" + data + "\n"
+			}
 			else continue;
 			ls.setItem(name, data, me.logs.push((c4u?"U ":"L ")+name))
 		}

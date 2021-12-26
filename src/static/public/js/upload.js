@@ -32,5 +32,6 @@ window._getUploads = (render = false) =>
 		</div>`;
 			});
 		}
+		_imgC ()
 		return res(files);
 	});
