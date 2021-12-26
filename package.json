@@ -2,9 +2,10 @@
   "name": "ws",
   "version": "1.0.0",
   "description": "",
-  "main": "src/cluster.js",
+  "main": "src/app.js",
   "scripts": {
-    "test": "clear && nodemon src/app.js",
+    "test": "clear && nodemon src/test.js",
+    "dev": "clear && nodemon src/dev.js",
     "start": "node ."
   },
   "repository": {
@@ -27,6 +28,7 @@
     "express": "^4.17.1",
     "express-handlebars": "^6.0.2",
     "formidable": "^2.0.1",
+    "image-to-base64": "^2.2.0",
     "node-fetch": "^2.6.6",
     "node-html-parser": "^5.1.0",
     "nodejs-file-downloader": "^4.7.4",

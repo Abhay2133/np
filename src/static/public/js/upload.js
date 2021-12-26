@@ -27,7 +27,7 @@ window._getUploads = (render = false) =>
 			files.forEach((file) => {
 				qs(
 					".files"
-				).innerHTML += `<div> <img src="/icons/file.png" class="icon" >
+				).innerHTML += `<div> <img data-src="/icons/file.png" class="icon" >
 			<span>${file} </span>
 		</div>`;
 			});

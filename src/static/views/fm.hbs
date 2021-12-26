@@ -6,12 +6,12 @@
 <div
 	class="fad chd-section(bg-eee) chd(bg-ECD840,bdr,m-s,rc-s,p-s,d-flx,chd-span(bdr-L,d-b,pos-rel,top-n,p-L,m-L-s,ovrflw-scrl,ws-nw),chd-img(h-20p,w-20p),chd-div(pos-abs,d-ib,st,right-_80p,top-n,h-30p,crsr-pntr,dnw,bb,p-5px_20px,hbr(bnw)))"
 >
-	<div class="gb ovrflw-hdn crsr-pntr pos-rel hbr(chd-div(right-0p)) d-flx"> <img src="/icons/back.png" /> <span class="upDir"> root </span> <div class="bb"> Back </div> </div>
+	<div class="gb ovrflw-hdn crsr-pntr pos-rel hbr(chd-div(right-0p)) d-flx"> <img data-src="/icons/back.png" /> <span class="upDir"> root </span> <div class="bb"> Back </div> </div>
 	{{#each ls.dirs}}
-		<div class="dir ovrflw-hdn pos-rel hbr(chd-div(right-0p))  "> <img src="/icons/folder.png" /> <span> {{this}} </span> <div> Open </div> </div>
+		<div class="dir ovrflw-hdn pos-rel hbr(chd-div(right-0p))  "> <img data-src="/icons/folder.png" /> <span> {{this}} </span> <div> Open </div> </div>
 	{{/each}}
 	{{#each ls.files}}
-		<section> <img src="/icons/file.png" /> <span> {{this}} </span></section>
+		<section> <img data-src="/icons/file.png" /> <span> {{this}} </span></section>
 	{{/each}}
 </div>
 <style>

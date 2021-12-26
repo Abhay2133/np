@@ -5,6 +5,7 @@ module.exports = async () => {
 	global.j = require("path").join;
 	global.basename = require("path").basename;
 	global.sdir = j(__dirname, "..", "static");
+	global.pdir = j(sdir, "public");
 	global._port = process.env.PORT || 3000;
 	if (!fs.existsSync(j(sdir, "files", "uploads")))
 		fs.mkdirSync(j(sdir, "files", "uploads"), { recursive: true });
@@ -27,10 +28,11 @@ module.exports = async () => {
 	app.engine(".hbs", engine);
 	app.set("view engine", ".hbs");
 	app.set("views", j(__dirname, "..", "static", "views"));
-
+	
+	let cdn = require("os").platform() == "android" ? "termux-open-url http://localhost" + ":" + _port + "&& cdn" : "google-chrome http://localhost" + ":" + _port +" ; cd .. ; cd cdn ; npm start; pwd";
 	if (app.locals.env == "dev")
 		exec(
-			"termux-open-url http://localhost" + ":" + _port + ";google-chrome http://localhost" + ":" + _port +" ; cdn ; cd .. ; cd cdn ; npm start; pwd",
+			cdn,
 			(err, stdout, stderr) => {
 				log("Starting chrome");
 				log(err, stdout, stderr);

@@ -1,15 +1,21 @@
-require("./bin/index.js")();
-/*
-var search = require('youtube-search');
+const cluster = require("cluster");
+const app = require("./bin/index");
+const numCPUs = require("os").cpus().length;
 
-var opts = {
-  maxResults: 10,
-  key: 'AIzaSyDJSiTLnlhnEc9u1MseWpRja-xfpuw4UB8'
-};
+if (cluster.isMaster) {
+	console.log(`Master ${process.pid} is running`);
 
-search('AjjuBhai', opts, function(err, results) {
-  if(err) return console.log(err);
+	// Fork workers.
+	for (let i = 0; i < numCPUs; i++) {
+		cluster.fork();
+	}
 
-  console.dir(results);
-});
-*/
+	cluster.on("exit", (worker, code, signal) => {
+		console.log(`worker ${worker.process.pid} died`);
+	});
+} else {
+	// Workers can share any TCP connection
+	// In this case it is an HTTP server
+	app();
+	console.log(`Worker ${process.pid} started`);
+}

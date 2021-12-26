@@ -5,6 +5,7 @@ const scraper = require("../webScraper.js"),
 	zipper = require("../zipper"),
 	hlpr = require("../hlpr.js"),
 	urlm = require("url");
+const img = require("image-to-base64");
 
 module.exports = function (app) {
 	app.use((req, res, next) => {
@@ -82,4 +83,12 @@ module.exports = function (app) {
 	app.get("/getUploads", (req, res) =>
 		res.json(fs.readdirSync(j(sdir, "files", "uploads")))
 	);
+	
+	app.post("/img", async ( req, res ) => {
+		let {url} = req.body;
+		if ( url[0] == "/" ) url = j(pdir, url)
+		img(url)
+		.then( data => res.send(data))
+		.catch ( err => res.send(err))
+	})
 }

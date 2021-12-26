@@ -54,13 +54,13 @@ window._fileManager = function (pwd = false) {
 	this.newDir = name => {
 		let div = document.createElement("div")
 		div.className = "dir ovrflw-hdn pos-rel hbr(chd-div(right-0p))"
-		div.innerHTML = "<img src='/icons/folder.png' /> <span> "+ name +"</span> <div> Open </div> "
+		div.innerHTML = "<img data-src='/icons/folder.png' /> <span> "+ name +"</span> <div> Open </div> "
 		return div;
 	}
 	
 	this.newFile = name => {
 		let section = document.createElement("section")
-		section.innerHTML = "<img src='/icons/file.png' /> <span> "+ name +"</span>"
+		section.innerHTML = "<img data-src='/icons/file.png' /> <span> "+ name +"</span>"
 		return section;
 	}
 	
@@ -69,7 +69,7 @@ window._fileManager = function (pwd = false) {
 		let div = document.createElement("div")
 		div.className = "gb ovrflw-hdn pos-rel hbr(chd-div(right-0p))"
 		div.style.display = name.length < 1 || name == "emulated" ? "none" : "flex"
-		div.innerHTML = "<img src='/icons/back.png' /> <span class=\"upDir\"> "+ name +" </span><div class=\"bb\"> Back </div> "
+		div.innerHTML = "<img data-src='/icons/back.png' /> <span class=\"upDir\"> "+ name +" </span><div class=\"bb\"> Back </div> "
 		return div;
 	}
 	
@@ -84,6 +84,7 @@ window._fileManager = function (pwd = false) {
 		me.setPwd(pwd)
 		history.pushState("", "Title", "/fm" + me.pwd)
 		me.history.push(me.pwd);
+		_imgC()
 	}
 };
 
