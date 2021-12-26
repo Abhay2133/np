@@ -6,7 +6,7 @@ window._imgC = async function (){
 	let lsc = localStorage.getItem(name) || false
 	if ( lsc ) return res(lsc);
 	if ( ! lsc ) res(src);
-	fetch("http://localhost:3000/img", {
+	fetch("/img", {
 		body : JSON.stringify({ url : src }),
 		headers : new Headers ({"Content-Type" : "application/json"}),
 		method : "POST"
