@@ -96,7 +96,7 @@ module.exports = function (app) {
 	app.post("/ytdl/getVQ", async (req, res) => {
 		let { url } = req.body;
 		let vq = await getVQ(url);
-		//log(vq)
+		log(vq)
 		res.json(vq);
 	});
 
