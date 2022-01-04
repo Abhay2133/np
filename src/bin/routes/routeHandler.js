@@ -95,8 +95,9 @@ module.exports = function (app) {
 
 	app.post("/ytdl/getVQ", async (req,res) =>{
 		let {url} = req.body;
-		let hq = await getVQ(url);
-		res.json(hq)
+		let vq = await getVQ(url);
+		fs.rm(j(sdir, "ytdl", vq.videoId), {recursive : true }, (err) => console.error(err ? err : "Dir Deleted !"))
+		res.json(vq)
 	})
 	
 	app.post ("/ytdl/save", async (req, res) => {
