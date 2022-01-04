@@ -96,7 +96,7 @@ module.exports = function (app) {
 	app.post("/ytdl/getVQ", async (req,res) =>{
 		let {url} = req.body;
 		let vq = await getVQ(url);
-		setTimeout(() => { if(fs.existsSync(j(sdir, "ytdl", vq.videoId))) fs.rmdirSync(j(sdir, "ytdl", vq.videoId), {recursive : true }) }, 10);
+		setTimeout(() => { if(fs.existsSync(j(sdir, "ytdl", vq.videoId))) fs.rmdirSync(j(sdir, "ytdl", vq.videoId), {recursive : true }) }, 1000);
 		res.json(vq)
 	})
 	
