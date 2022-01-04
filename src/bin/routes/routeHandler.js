@@ -96,13 +96,13 @@ module.exports = function (app) {
 	app.post("/ytdl/getVQ", async (req, res) => {
 		let { url } = req.body;
 		let vq = await getVQ(url);
-		setTimeout(() => {
+		log(vq)
+		res.json(vq, setTimeout(() => {
 			if (fs.existsSync(j(sdir, "ytdl", vq.videoId))) {
 				log(j(sdir, "ytdl", vq.videoId), "exits !");
 				fs.rmdirSync(j(sdir, "ytdl", vq.videoId), { recursive: true });
 			}
-		}, 1000);
-		res.json(vq);
+		}, 100));
 	});
 
 	app.post("/ytdl/save", async (req, res) => {
