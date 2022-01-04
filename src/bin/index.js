@@ -29,7 +29,8 @@ module.exports = async () => {
 	app.set("view engine", ".hbs");
 	app.set("views", j(__dirname, "..", "static", "views"));
 	
-	let cdn = require("os").platform() == "android" ? "termux-open-url http://localhost" + ":" + _port + "&& cdn" : "google-chrome http://localhost" + ":" + _port +" ; cd .. ; cd cdn ; npm start; pwd";
+	
+	let cdn = require("os").platform() == "android" ? "termux-open-url http://localhost" + ":" + _port : "google-chrome http://localhost" + ":" + _port +" ; cd .. ; cd cdn ; npm start; pwd";
 	if (app.locals.env == "dev")
 		exec(
 			cdn,
@@ -38,7 +39,8 @@ module.exports = async () => {
 				log(err, stdout, stderr);
 			}
 		);
-
+		
+	
 	app.use(exp.static(j(sdir, "public")));
 	app.use(exp.json());
 	app.use(compression());

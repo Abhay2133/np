@@ -22,7 +22,7 @@
 	</style>
 	<body class="d-b m-n pc(pos-rel,w-500p,left-50pg,m-L-_250p)" id="body">
 
-		<div class="t-c zi-999999 bg-eee p-s h-a pos-rel pos-fxd w-100pg top-0p left-0p">
+		<div style="{{{mhs}}}" class="t-c zi-999999 bg-eee p-s h-a pos-rel pos-fxd w-100pg top-0p left-0p">
 			<div id="hmbgr" class="" onclick="thmbgr(tsp)"> <hr /><hr /><hr /> </div>
 			<h1 class="d-ib m-7p t-c fw-300 f-xxl txtdc-no m-n">
 				{{mainHeading}}
@@ -48,11 +48,12 @@ let loadF= new _loadFiles();
 loadF.files = [
 	"/css/ui.css",
 	"/js/imgC.js",
-	"{{cdn}}/acss.min.js",
+	"https://cdn2132.herokuapp.com/acss.min.js",
 	"/js/main.js",
 	"/js/hlpr.js",
 	"/js/upload.js",
-	"/js/fm.js"
+	"/js/fm.js",
+	"/js/ytdl.js"
 ]
 loadF.init()
 </script>

@@ -22,5 +22,6 @@ module.exports = () => {
 			mainHeading: "Uploads",
 			files: fs.readdirSync(j(sdir, "files", "uploads")),
 		}),
+		"/ytdl": (req) => ({ view: "ytdl", title: "YouTube Video Downloader" , mainHeading: "YTDL",/* mhs : "background-color:#FE0000; color :#fff"  */})
 	};
 };

@@ -1,10 +1,11 @@
 const { Stream } = require("stream");
+const {getVQ, save} = require("../ytdl")
 const scraper = require("../webScraper.js"),
 	colors = require("colors"),
 	fs = require("fs"),
 	zipper = require("../zipper"),
 	hlpr = require("../hlpr.js"),
-	urlm = require("url");
+	urlm = require("url")
 const img = require("image-to-base64");
 
 module.exports = function (app) {
@@ -90,5 +91,33 @@ module.exports = function (app) {
 		img(url)
 		.then( data => res.send(data))
 		.catch ( err => res.send(err))
+	})
+
+	app.post("/ytdl/getVQ", async (req,res) =>{
+		let {url} = req.body;
+		let hq = await getVQ(url);
+		res.json(hq)
+	})
+	
+	app.post ("/ytdl/save", async (req, res) => {
+		let {id, quality} = req.body;
+		if (fs.existsSync(j(sdir, "ytdl", id, "stats.json"))) {
+			let data = false
+			try{ data =  JSON.parse(fs.readFileSync(j(sdir, "ytdl", id, "stats.json"))) }
+			catch (e) { data = false; log(e) }
+			if ( data ) return res.json(data)
+		}
+		let info = await save(id, quality);
+		res.json(info)
+	})
+	
+	app.get("/ytdl/download/:id", (req, res) => {
+		let id = req.params.id
+		if ( ! fs.existsSync(j(sdir, "ytdl", id))) return res.json({ error : "Video doesn't exists"})
+		let name = require(j(sdir, "ytdl", id, "stats.json")).name
+		let uri = j(sdir, "ytdl", id, name)
+		res.download(uri, () => {
+			setTimeout(() => fs.rmdirSync(j(sdir, "ytdl", id), { recursive : true}), 10000) 
+		})
 	})
 }
