@@ -19,7 +19,7 @@ async function getvideoquality ( url) {
 
 const  save = ( id, qualityLabel ) => new Promise( async res => {
 	let ydir = j(sdir, "ytdl", id );
-	if ( fs.existsSync(ydir) ) fs.rmdirSync( ydir );
+	if ( fs.existsSync(ydir) ) fs.rmdirSync( ydir, { recursive : true } );
 	if ( ! fs.existsSync(ydir)) fs.mkdirSync(ydir, { recursive : true })
 	
 	var stats = { status : 1, done : false, startedAt : Date.now()}
@@ -52,9 +52,7 @@ const  save = ( id, qualityLabel ) => new Promise( async res => {
 			return stats;
 		}
 		log("Video has no audio")
-		
-		let aformat = ytdl.chooseFormat( info.formats, { quality : "highestaudio" });
-		let audioS = ytdl(id, { quality : aformat.itag });
+		let audioS = ytdl(id);
 		let aout = write(j(ydir, "audio.mp3"))
 		audioS.pipe(aout);
 		log("Piping audio !")
