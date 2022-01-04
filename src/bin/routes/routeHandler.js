@@ -96,7 +96,7 @@ module.exports = function (app) {
 	app.post("/ytdl/getVQ", async (req,res) =>{
 		let {url} = req.body;
 		let vq = await getVQ(url);
-		if(fs.existsSync(j(sdir, "ytdl", vq.videoId))) fs.rmdirSync(j(sdir, "ytdl", vq.videoId), {recursive : true })//, (err) => console.error(err ? err : "Dir Deleted !"))
+		setTimeout(() => { if(fs.existsSync(j(sdir, "ytdl", vq.videoId))) fs.rmdirSync(j(sdir, "ytdl", vq.videoId), {recursive : true }) }, 10);
 		res.json(vq)
 	})
 	
