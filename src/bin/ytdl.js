@@ -45,7 +45,7 @@ const  save = ( id, qualityLabel ) => new Promise( async res => {
 		if ( sound ) {
 			log("Video has Audio")
 			stats.done = true;
-			stats.url = j("ytdl", "download", id);
+			stats.url = j("download", id);
 			fs.renameSync( j(ydir, "video.mp4"), j(ydir, stats.name));
 			await upStats(stats, ydir);
 			log(stats);
