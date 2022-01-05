@@ -16,7 +16,7 @@ module.exports = function (app) {
 			PUT: "blue",
 			DELETE: "red",
 		};
-		log(colors[mc[req.method]](req.method), req.url);
+		process.stdout.write("\n" + colors[mc[req.method]](req.method)+" "+ req.url);
 		next();
 	});
 
@@ -96,7 +96,7 @@ module.exports = function (app) {
 	app.post("/ytdl/getVQ", async (req, res) => {
 		let { url } = req.body;
 		let vq = await getVQ(url);
-		log(vq)
+		if(fs.existsSync(j(sdir, "ytdl", vq.videoId))) fs.rmSync(j(sdir, "ytdl", vq.videoId), {recursive : true })
 		res.json(vq);
 	});
 
@@ -104,6 +104,7 @@ module.exports = function (app) {
 		let { id, quality } = req.body;
 		if (fs.existsSync(j(sdir, "ytdl", id, "stats.json"))) {
 			let data = false;
+			stdout(" "+ true);
 			try {
 				data = JSON.parse(fs.readFileSync(j(sdir, "ytdl", id, "stats.json")));
 			} catch (e) {
@@ -112,6 +113,7 @@ module.exports = function (app) {
 			}
 			if (data) return res.json(data);
 		}
+		stdout("Starting Job")
 		let info = await save(id, quality);
 		res.json(info);
 	});
@@ -124,9 +126,10 @@ module.exports = function (app) {
 		let uri = j(sdir, "ytdl", id, name);
 		res.download(uri, () => {
 			setTimeout(
-				() => fs.rmdirSync(j(sdir, "ytdl", id), { recursive: true }),
+				() => fs.rmSync(j(sdir, "ytdl", id), { recursive: true }),
 				10000
 			);
 		});
 	});
+	
 };

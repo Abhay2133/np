@@ -18,6 +18,7 @@ async function getvideoquality ( url) {
 }
 
 const  save = ( id, qualityLabel ) => new Promise( async res => {
+	stdout("\n" + "1. Download Initiated !")
 	let ydir = j(sdir, "ytdl", id );
 	if ( fs.existsSync(ydir) ) fs.rmdirSync( ydir, { recursive : true } );
 	if ( ! fs.existsSync(ydir)) fs.mkdirSync(ydir, { recursive : true })
@@ -30,34 +31,36 @@ const  save = ( id, qualityLabel ) => new Promise( async res => {
 	let videoS = ytdl( id , { quality : format.itag })
 	let vout = write(j(ydir, "video.mp4"))
 	videoS.pipe(vout);
-	log("Video Piped ! ")
+	stdout("\n" + "2. Video piping / saving started ! ")
 	let title = info.videoDetails.title
 	stats.name = title.split(".").join("") +".mp4"
 	stats.status = 2;
 	await upStats(stats, ydir);
 	
 	vout.on("finish" , async () => {
-		log("Video Downloaded")
+		stdout("\n" + "3. Video Downloaded ! checking for Audio")
 		stats.status = 3;
 		await upStats(stats, ydir);
 		let sound = await hasAudio(j(ydir, "video.mp4"))
-		log("checking for sound :", sound)
+		stdout("\n" + "checking for sound :", sound)
 		if ( sound ) {
-			log("Video has Audio")
+			stdout("\n" + "Done : Video has Audio")
 			stats.done = true;
 			stats.url = j("download", id);
 			fs.renameSync( j(ydir, "video.mp4"), j(ydir, stats.name));
 			await upStats(stats, ydir);
-			log(stats);
+			stdout("\n" + stats);
 			return stats;
 		}
-		log("Video has no audio")
-		let audioS = ytdl(id);
+		stdout("\n" + "3. Video has no audio")
+		
+		let aformat = ytdl.chooseFormat(info.formats, { quality : "highestaudio"})
+		let audioS = ytdl(id, {quality : aformat.itag});
 		let aout = write(j(ydir, "audio.mp3"))
 		audioS.pipe(aout);
-		log("Piping audio !")
+		stdout("\n" + "4. Piping / saving audio !")
 		aout.on("finish", async () =>{
-			log("audio downloaded ")
+			stdout("\n" + "4. audio downloaded ")
 			stats.status = 4
 			await upStats(stats, ydir)
 			let video = await (new ff(j(ydir, "video.mp4")))
@@ -65,11 +68,11 @@ const  save = ( id, qualityLabel ) => new Promise( async res => {
 			video.addCommand("-map","0:v -map 1:a -c:v copy -c:a copy");
 			await video.save(j(ydir, `"${stats.name}"`))
 			
-			log("video - audio merged !")
+			stdout("\n" + "5. video - audio merged !")
 			stats.status = 5 ; stats.done = true;
 			stats.url = j("download", id);
 			await upStats(stats, ydir)
-			log(stats)
+			stdout("\n", stats)
 		})
 	})
 	
@@ -79,7 +82,7 @@ const upStats = (stats, ydir) => new Promise ( res => fs.writeFile(j(ydir, "stat
 const hasAudio = ( path ) => new Promise ( async res => {
 	let video = await (new ff(path));
 	let audio = (!!video.metadata.audio.bitrate)
-	//log(audio)
+	//stdout("\n" + audio)
 	return res( audio )
 })
 

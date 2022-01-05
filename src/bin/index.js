@@ -7,6 +7,7 @@ module.exports = async () => {
 	global.sdir = j(__dirname, "..", "static");
 	global.pdir = j(sdir, "public");
 	global._port = process.env.PORT || 3000;
+	global.stdout = (...a) => process.stdout.write(a.map(b => ( typeof b == "object" ? JSON.stringify(b) : b) ).join(" "))
 	if (!fs.existsSync(j(sdir, "files", "uploads")))
 		fs.mkdirSync(j(sdir, "files", "uploads"), { recursive: true });
 

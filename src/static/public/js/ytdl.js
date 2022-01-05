@@ -46,7 +46,7 @@ window.downloadV = function (id, q) {
 
 async function renderDP ( data , id, q) {
 	console.log(data)
-	await (new Promise (res => setTimeout( res , 2000)))
+	await (new Promise (res => setTimeout( res , 3000)))
 	if ( ! data.done ) return downloadV (id, q)
 	location.href += "/"+data.url
 }
