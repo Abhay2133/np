@@ -6,7 +6,7 @@
   "scripts": {
     "test": "nodemon src/bin/test/test.js",
     "dev": "clear && nodemon src/dev.js",
-    "start": "node --trace-warning .",
+    "start": "node . --trace-warning",
     "run": "run.sh"
   },
   "repository": {
