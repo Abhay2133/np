@@ -5,8 +5,9 @@
 		contenteditable
 		value="{{filename}}"
 		placeholder="File Name"
+		required
 	/>
-	<a class="button dnw m" onclick="dwnld('/download?file={{url}}')">
+	<button class="button dnw m" onclick="pressed(this, true);dwnld()">
 		Download Now !
-	</a>
+	</button>
 </div>

@@ -5,7 +5,9 @@ const scraper = require("../webScraper.js"),
 	fs = require("fs"),
 	zipper = require("../zipper"),
 	hlpr = require("../hlpr.js"),
-	urlm = require("url");
+	urlm = require("url"),
+	{getInfo} = require("../ydl")
+	
 const img = require("image-to-base64");
 
 module.exports = function (app) {
@@ -60,14 +62,9 @@ module.exports = function (app) {
 	app.get("/download*", (req, res) => {
 		if (req.query.file) {
 			let file_path = j(sdir, "files", req.query.file);
-			return res.download(file_path, (err) =>
-				fs.unlink(file_path, (err) => log("Deleted", basename(file_path)))
-			);
+			return res.download(file_path, (err) =>log(err || "\nDownloading %s !",req.query.file ));
 		}
-		res.render("download", {
-			filename: basename(req.query.did),
-			url: req.query.did,
-		});
+		res.render("download");
 	});
 
 	app.get("/fstat", async (req, res) => {
@@ -131,5 +128,11 @@ module.exports = function (app) {
 			);
 		});
 	});
+	
+	app.get("/ydl/q/:id",async (req, res) => {
+		let id = req.params.id,
+			data = await getInfo(id, req.query.extra)
+		res.json(data);
+	})
 	
 };

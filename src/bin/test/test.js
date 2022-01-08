@@ -1,20 +1,13 @@
-function sorter ( arr ) {
-	for(let i = 0 ; i < arr.length -1 ; i++ )
-		for(let j = 0 ; j < arr.length - i -1 ; j++ ){
-			if ( arr[j] > arr[j+1] ) {
-				let a = arr[j] ;
-				arr[j] = arr[j+1]
-				arr[j+1] = a
-			}
-	}
-	return arr;
-}
+// Testing ydl and dl from fetch
 
+const { dl } = require("./fetch"),
+	{ log, getInfo } = require("./ydl");
 
-let arr = [1080, 144, 720,360, 480]
+(async () => {
+	let url = "https://youtu.be/QuV9iPaZTBU";
+	log("fetching %s", url);
 
-console.log(sorter(arr))
-
-
-
-
+	getInfo(url)
+		.then((data) => dl(data.q["360p"].url, "./", "video.mp4", log(data)))
+		.then((stat) => log(stat));
+})()

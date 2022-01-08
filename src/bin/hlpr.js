@@ -36,9 +36,37 @@ const getctime = (file) =>
 		})
 	);
 
+const _get = (url, parse = false) => new Promise( res => {
+	https.get(
+		url,
+		{headers : {"User-Agent" : os.platform()}},{headers : {"User-Agent" : os.platform()}},
+		(r) => {
+			let data = ""
+			r.on("data", chuck => data += chuck)
+			r.on("end", () => res(parse ? JSON.parse(data) : data));
+	})
+})
+
+const dl = (url, ddir = "./", name ) => new Promise( res => {
+	name = name || bn(url).split("?")[0]
+	console.log(url, ddir, name)
+	https.get(
+		url,
+		{headers : {"User-Agent" : os.platform()}},
+		(r) => {
+			r.on("error", (err) => res(err))
+			let out = fs.createWriteStream(j(ddir, name))
+			r.pipe(out)
+			r.on("end", () => res(true))
+		}
+	)
+})
+
 module.exports = {
 	delDdir: delDdir,
 	readir: readir,
 	te: timeElapsed,
 	gct: getctime,
+	_get : _get,
+	dl : dl
 };

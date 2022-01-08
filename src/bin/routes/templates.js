@@ -10,6 +10,7 @@ module.exports = () => {
 			mainHeading: "FS module Testing",
 		}),
 		"/imgD": (req) => ({ view: "imgD", title: "Image Downloader", mainHeading: "" }),
+		//"/download": (req) => ({ view: "download", title: " Downloadz ", mainHeading: "Download Files" }),
 		"/fm*": (req) => ({
 			view: "fm",
 			title: "File Manager",

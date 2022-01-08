@@ -15,11 +15,13 @@ var qNode //= document.querySelector(".quality").cloneNode(true);
 
 async function hogya () {
 	while (! (["complete","interactive"].includes(document.readyState))) await (new Promise (res => setTimeout( res , 100)))
-	qNode = document.querySelector(".quality").cloneNode(true);
+	let qT = document.querySelector(".quality")
+	if( qT) qNode = qT.cloneNode(true);
 }
 hogya ()
 
 function renderVQ ( data ) {
+	if( data.error ) return renderError(data.error) 
 	document.querySelector("#vt").src = data.thumbnail.pop()
 	document.querySelector("#vn").textContent = data.title
 	let qp = document.querySelector("#qPanel")
@@ -30,7 +32,7 @@ function renderVQ ( data ) {
 		qBar.children[1].addEventListener ("click", () => { downloadV(data.videoId, q) })
 		qp.appendChild(qBar);
 	}
-	document.querySelector("#panel").style.opacity = "1"
+	ytdl_vm("panel")
 }
 
 window.downloadV = function (id, q) {
@@ -51,8 +53,20 @@ async function renderDP ( data , id, q) {
 	location.href += "/"+data.url
 }
 
+function renderError (err) {
+	let error = document.querySelector("#error")
+	error.textContent = err;
+	ytdl_vm("error")
+}
 
-
+function ytdl_vm ( id , disp = "block" ) {
+	let view = ( i ) => document.getElementById(i);
+	const ids = ["panel", "error"]
+	if ( ! ids.includes(id) ) return false;
+	ids.forEach( i => (view(i).style.display = "none"))
+	view(id).style.display = disp;
+	return true;
+}
 
 
 
