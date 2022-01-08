@@ -61,6 +61,7 @@ module.exports = function (app) {
 
 	app.get("/download*", (req, res) => {
 		if (req.query.file) {
+			if( ! fs.existsSync( j(sdir, "files", req.query.file))) { return res.status(404).json({error : "File does not exists !"})}
 			let file_path = j(sdir, "files", req.query.file);
 			return res.download(file_path, (err) =>log(err || "\nDownloading %s !",req.query.file ));
 		}
